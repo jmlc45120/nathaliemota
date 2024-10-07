@@ -5,6 +5,7 @@
     <div class="site-info">
         <p>&copy; <?php echo date('Y'); ?> Mon Site - Tous droits réservés.</p>
     </div>
+    <?php get_template_part('template-parts/contact-modal'); ?>
     <?php wp_footer(); ?>
 </footer>
 </div>

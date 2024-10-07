@@ -56,3 +56,82 @@ main {
   color: #FE5858;
   border-bottom: 1px solid #E00000;
 }
+
+.contact-modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(224, 0, 0, 0.2);
+}
+
+.contact-modal-content {
+  display: flex;
+  justify-content: center;
+  background-color: #fff;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  border-radius: 10px;
+  width: 20%;
+  max-width: 600px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.contact-label {
+  display: block;
+  padding-bottom: 50px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.contact-input,
+.contact-textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+
+.contact-textarea {
+  height: 150px;
+  resize: none;
+}
+
+.contact-submit-container {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  margin: 0;
+  width: 100%;
+}
+
+.wpcf7-submit.has-spinner {
+  padding: 15px 30px;
+  font-size: 18px;
+  background-color: #E00000;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.wpcf7-submit.has-spinner:hover {
+  background-color: #FE5858;
+}
+
+.wpcf7-spinner {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  display: inline-block;
+  vertical-align: middle;
+}

@@ -2,14 +2,30 @@
 @import 'variables';
 
 // imports -------------------------------------------
+body {
+    margin: 0 ;
+    padding: 0;
+    font-family: 'Space Mono', monospace;
+}
+.container {
+    max-width: 1440px;
+    width: 100%;
+    background-color: 
+    rgb(248, 248, 248);
+    margin: 0 auto;
+    padding: 0 1em; // Ajout de padding pour les marges internes
+}
 main {
-display: flex;
-flex-direction: column;
-align-items: center;
-padding: 1em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1em;
 }
 .header {
+    
     &__container{
+        margin:0 120px 0 120px;
+        height:80px;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -19,17 +35,28 @@ padding: 1em;
         width: 100%;
     }
 }
-.navigation {
-display: flex;
-justify-content: space-around;
-list-style-type: none;
-padding: 0;
-    a{
-    text-decoration: none;
-    padding: 0;
+.logo {
+    width: 216px;
+    img {
+        max-width: 100%;
+        height: auto;
+        display: block; // Pour éviter les espaces blancs sous l'image
     }
-    a:hover{
-    color:#E00000;
-    font-weight: 700;
+}
+.navigation {
+    display: flex;
+    justify-content: right;
+    list-style-type: none;
+    a {
+        font-size: 16px;
+        text-decoration: none;
+        margin-left: 50px;
+        color: $color-dark-gray;
+        transition: color 0.5s ease, border 0.5s ease; // Ajout de transition
+
+        &:hover {
+            color: $color-secondary;
+            border-bottom: 1px solid $color-primary; // Exemple de bordure
+        }
     }
 }

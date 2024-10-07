@@ -1,3 +1,17 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Space Mono", monospace;
+}
+
+.container {
+  max-width: 1440px;
+  width: 100%;
+  background-color: rgb(248, 248, 248);
+  margin: 0 auto;
+  padding: 0 1em;
+}
+
 main {
   display: flex;
   flex-direction: column;
@@ -6,6 +20,8 @@ main {
 }
 
 .header__container {
+  margin: 0 120px 0 120px;
+  height: 80px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -15,17 +31,28 @@ main {
   width: 100%;
 }
 
+.logo {
+  width: 216px;
+}
+.logo img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
 .navigation {
   display: flex;
-  justify-content: space-around;
+  justify-content: right;
   list-style-type: none;
-  padding: 0;
 }
 .navigation a {
+  font-size: 16px;
   text-decoration: none;
-  padding: 0;
+  margin-left: 50px;
+  color: #313144;
+  transition: color 0.5s ease, border 0.5s ease;
 }
 .navigation a:hover {
-  color: #E00000;
-  font-weight: 700;
+  color: #FE5858;
+  border-bottom: 1px solid #E00000;
 }

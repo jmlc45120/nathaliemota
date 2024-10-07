@@ -10,16 +10,22 @@
         <header class="header__container">
             <div class="logo">
                 <a href="<?php echo home_url(); ?>">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/logo.png" alt="Logo du site">
+                    <?php
+                    if (function_exists('the_custom_logo') && has_custom_logo()) {
+                        the_custom_logo();
+                    } else {
+                        echo '<img src="' . get_template_directory_uri() . '/assets/images/logo.png" alt="Logo du site">';
+                    }
+                    ?>
                 </a>
             </div>
-            <nav class ="header__nav">
+            <nav class="header__nav">
                 <?php
-                wp_nav_menu( array(
+                wp_nav_menu(array(
                     'theme_location' => 'main-menu',
                     'container'      => false,
                     'menu_class'     => 'navigation'
-                ) );
+                ));
                 ?>
             </nav>
         </header>

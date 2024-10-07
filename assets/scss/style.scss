@@ -3,29 +3,31 @@
 // imports -------------------------------------------
 
 body {
-    margin: 0 ;
+    margin: 0;
     padding: 0;
     font-family: 'Space Mono', monospace;
+    color: black;
 }
+
 .container {
     max-width: 1440px;
     width: 100%;
-    background-color: 
-    rgb(248, 248, 248);
+    background-color: rgb(248, 248, 248);
     margin: 0 auto;
     padding: 0 1em; // Ajout de padding pour les marges internes
 }
+
 main {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 1em;
 }
+
 .header {
-    
-    &__container{
-        margin:0 120px 0 120px;
-        height:80px;
+    &__container {
+        margin: 0 120px;
+        height: 80px;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -35,6 +37,7 @@ main {
         width: 100%;
     }
 }
+
 .logo {
     width: 216px;
     img {
@@ -43,24 +46,85 @@ main {
         display: block; // Pour éviter les espaces blancs sous l'image
     }
 }
+
 .navigation {
     display: flex;
     justify-content: right;
     list-style-type: none;
     a {
+        position: relative;
         font-size: 16px;
         text-decoration: none;
         margin-left: 50px;
-        color: $color-dark-gray;
-        transition: color 0.5s ease, border 0.5s ease; // Ajout de transition
-
+        color: $color-black;
+        &::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -5px; // Positionner la ligne juste en dessous du texte
+            height: 2px; // Hauteur de la ligne de survol
+            background-color: $color-primary; // Couleur de la ligne de survol
+            transition: width 0.5s ease; // Transition pour l'animation de la largeur
+        }
+        &:hover::after {
+            animation: underline-animation 0.7s forwards; // Appliquer l'animation au survol
+            
+        }
         &:hover {
-            color: $color-secondary;
-            border-bottom: 1px solid $color-primary; // Exemple de bordure
+            animation: text-color-animation 0.7s forwards; // Appliquer l'animation de la couleur du texte au survol
+            font-weight: 600;
         }
     }
 }
-// Gestion de la modale :
+
+@keyframes underline-animation {
+    0% {
+        width: 0;
+        left: 0;
+    }
+    90% {
+        width: 100%;
+        left: 0;
+    }
+    100% {
+        width: 0;
+        left: 100%;
+    }
+}
+
+@keyframes text-color-animation {
+    0% {
+        color: $color-black;
+    }
+    50% {
+        color: mix($color-dark-gray, $color-primary, 50%);
+    }
+    100% {
+        color: $color-primary;
+    }
+}
+
+// ------------------------------------------------------------------------
+// --------------------------- STYLES DU FOOTER ---------------------------
+// ------------------------------------------------------------------------
+.site-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    a {
+        text-decoration: none;
+        color: inherit;
+        transition: color 0.5s ease; // Ajout de transition pour le changement de couleur
+    }
+    a:hover {
+        color: $color-primary; // Changer la couleur des liens au survol
+    }
+}
+
+// ------------------------------------------------------------------------
+// ------------------------- STYLES DE LA MODALE -------------------------
+// ------------------------------------------------------------------------
 .contact-modal {
     display: none;
     position: fixed;
@@ -103,20 +167,19 @@ main {
     box-sizing: border-box;
 }
 
-
 .contact-textarea {
     height: 150px;
     resize: none;
 }
 
 .contact-submit-container {
-    display:flex;
+    display: flex;
     justify-content: center;
-    position:relative;
-    margin:0;
+    position: relative;
+    margin: 0;
     width: 100%;
-   
 }
+
 .wpcf7-submit.has-spinner {
     padding: 15px 30px; // Augmenter le padding pour agrandir le bouton
     font-size: 18px; // Augmenter la taille de la police

@@ -13,7 +13,18 @@ function theme_nathaliemota_enqueue_styles()
 }
 add_action('wp_enqueue_scripts', 'theme_nathaliemota_enqueue_styles');
 
-// Register navigation menus
+// Ajouter le support du logo personnalisé
+function theme_setup() {
+    add_theme_support('custom-logo', array(
+        'height'      => 100,
+        'width'       => 400,
+        'flex-height' => true,
+        'flex-width'  => true,
+    ));
+}
+add_action('after_setup_theme', 'theme_setup');
+
+// Enregistrer le menu de navigation
 function register_my_menus()
 {
     register_nav_menus(array(

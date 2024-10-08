@@ -51,32 +51,32 @@ main {
     display: flex;
     justify-content: right;
     list-style-type: none;
-    a {
-        position: relative;
-        font-size: 16px;
-        text-decoration: none;
-        margin-left: 50px;
-        color: $color-black;
-        &::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: -5px; // Positionner la ligne juste en dessous du texte
-            height: 2px; // Hauteur de la ligne de survol
-            background-color: $color-primary; // Couleur de la ligne de survol
-            transition: width 0.5s ease; // Transition pour l'animation de la largeur
-        }
-        &:hover::after {
-            animation: underline-animation 0.7s forwards; // Appliquer l'animation au survol
-            
-        }
-        &:hover {
-            animation: text-color-animation 0.7s forwards; // Appliquer l'animation de la couleur du texte au survol
-            font-weight: 600;
-        }
+
+}
+a:not(.logo a) {
+    position: relative;
+    font-size: 16px;
+    text-decoration: none;
+    margin-left: 50px;
+    color: $color-black;
+    &::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: -3px; // Positionner la ligne juste en dessous du texte
+        height: 3px; // Hauteur de la ligne de survol
+        background-color: $color-primary; // Couleur de la ligne de survol
+        transition: width 0.5s ease; // Transition pour l'animation de la largeur
+    }
+    &:hover::after {
+        animation: underline-animation 0.5s forwards; // Appliquer l'animation au survol
+        
+    }
+    &:hover {
+        animation: text-color-animation 0.7s forwards; // Appliquer l'animation de la couleur du texte au survol
+        font-weight: 600;
     }
 }
-
 @keyframes underline-animation {
     0% {
         width: 0;
@@ -111,15 +111,10 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 10px;
-    a {
-        text-decoration: none;
-        color: inherit;
-        transition: color 0.5s ease; // Ajout de transition pour le changement de couleur
+    p {
+        margin-left:50px;
     }
-    a:hover {
-        color: $color-primary; // Changer la couleur des liens au survol
-    }
+    
 }
 
 // ------------------------------------------------------------------------

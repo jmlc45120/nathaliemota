@@ -46,26 +46,27 @@ main {
   justify-content: right;
   list-style-type: none;
 }
-.navigation a {
+
+a:not(.logo a) {
   position: relative;
   font-size: 16px;
   text-decoration: none;
   margin-left: 50px;
   color: #000000;
 }
-.navigation a::after {
+a:not(.logo a)::after {
   content: "";
   position: absolute;
   left: 0;
-  bottom: -5px;
-  height: 2px;
+  bottom: -3px;
+  height: 3px;
   background-color: #E00000;
   transition: width 0.5s ease;
 }
-.navigation a:hover::after {
-  animation: underline-animation 0.7s forwards;
+a:not(.logo a):hover::after {
+  animation: underline-animation 0.5s forwards;
 }
-.navigation a:hover {
+a:not(.logo a):hover {
   animation: text-color-animation 0.7s forwards;
   font-weight: 600;
 }
@@ -99,15 +100,9 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 10px;
 }
-.site-info a {
-  text-decoration: none;
-  color: inherit;
-  transition: color 0.5s ease;
-}
-.site-info a:hover {
-  color: #E00000;
+.site-info p {
+  margin-left: 50px;
 }
 
 .contact-modal {

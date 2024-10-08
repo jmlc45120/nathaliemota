@@ -5,7 +5,7 @@
     <div class="site-info">
         <a href="/mentions-legales">MENTIONS LÉGALES</a>
         <a href="/vie-privee">VIE PRIVÉE</a>
-        <a href="/tous-droits-reserves">TOUS DROITS RÉSERVÉS</a>
+        <p>TOUS DROITS RÉSERVÉS</p>
     </div>
     <?php get_template_part('template-parts/contact-modal'); ?>
     <?php wp_footer(); ?>

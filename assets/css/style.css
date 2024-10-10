@@ -10,14 +10,14 @@ body {
   width: 100%;
   background-color: rgb(248, 248, 248);
   margin: 0 auto;
-  padding: 0 1em;
+  padding: 0 0em;
 }
 
 main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 1em;
+  padding: 0em;
 }
 
 .header__container {
@@ -47,6 +47,10 @@ main {
   list-style-type: none;
 }
 
+article {
+  padding: 0;
+}
+
 a:not(.logo a) {
   position: relative;
   font-size: 16px;
@@ -63,12 +67,12 @@ a:not(.logo a)::after {
   background-color: #E00000;
   transition: width 0.5s ease;
 }
-a:not(.logo a):hover::after {
-  animation: underline-animation 0.5s forwards;
-}
 a:not(.logo a):hover {
   animation: text-color-animation 0.7s forwards;
   font-weight: 600;
+}
+a:not(.logo a):hover::after {
+  animation: underline-animation 0.5s forwards;
 }
 
 @keyframes underline-animation {
@@ -96,6 +100,38 @@ a:not(.logo a):hover {
     color: #E00000;
   }
 }
+.hero-image {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.hero-image img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.hero-image .hero-title {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 96px;
+  font-weight: 700;
+  font-style: italic;
+  text-align: center;
+  color: transparent;
+  -webkit-text-stroke: 3px white;
+  white-space: nowrap;
+  background-image: url("http://site-nathalie-mota.local/wp-content/uploads/2024/10/nathalie-1-scaled.jpeg");
+  background-size: cover;
+  background-position: center;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
 .site-info {
   display: flex;
   justify-content: center;
@@ -113,8 +149,9 @@ a:not(.logo a):hover {
   top: 0;
   width: 100%;
   height: 100%;
-  overflow: auto;
-  background-color: rgba(224, 0, 0, 0.2);
+  overflow: hidden;
+  -webkit-backdrop-filter: blur(3px);
+          backdrop-filter: blur(3px);
 }
 
 .contact-modal-content {
@@ -182,4 +219,63 @@ a:not(.logo a):hover {
   transform: translateY(-50%);
   display: inline-block;
   vertical-align: middle;
+}
+
+.photo-archive {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.photo-item {
+  background-color: transparent;
+  padding: 0;
+  margin: 0;
+  border-width: 2px;
+  border-radius: 0;
+  overflow: hidden;
+  position: relative;
+}
+.photo-item:hover .photo-thumbnail img {
+  animation: zoom-dezoom 2s forwards;
+  overflow: hidden;
+  border-width: 2px;
+  border-color: #E00000;
+}
+
+.photo-thumbnail {
+  width: 564px;
+  height: 495px;
+  border-color: #E00000;
+  overflow: hidden;
+}
+.photo-thumbnail img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  transition: transform 1s ease;
+  border-width: 2px;
+  border-color: #E00000;
+}
+
+.photo-excerpt {
+  margin-top: 0px;
+}
+
+@keyframes zoom-dezoom {
+  0% {
+    transform: scale(1);
+  }
+  85% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
 }

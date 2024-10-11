@@ -32,11 +32,8 @@ main {
   width: 100%;
 }
 
-.logo {
-  width: 216px;
-}
 .logo img {
-  max-width: 100%;
+  width: 216px;
   height: auto;
   display: block;
 }
@@ -49,6 +46,8 @@ main {
 
 article {
   padding: 0;
+  max-width: 1200px;
+  width: 100%;
 }
 
 a:not(.logo a) {
@@ -123,13 +122,8 @@ a:not(.logo a):hover::after {
   font-style: italic;
   text-align: center;
   color: transparent;
-  -webkit-text-stroke: 3px white;
+  -webkit-text-stroke: 2px white;
   white-space: nowrap;
-  background-image: url("http://site-nathalie-mota.local/wp-content/uploads/2024/10/nathalie-1-scaled.jpeg");
-  background-size: cover;
-  background-position: center;
-  -webkit-background-clip: text;
-  background-clip: text;
 }
 
 .site-info {
@@ -224,34 +218,41 @@ a:not(.logo a):hover::after {
 .photo-archive {
   display: flex;
   flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
 }
 
 .photo-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
+  margin-top: 20px;
+  padding: 0;
+}
+.photo-grid article a {
+  margin: 0px;
+  padding: 0px;
 }
 
 .photo-item {
-  background-color: transparent;
-  padding: 0;
-  margin: 0;
-  border-width: 2px;
-  border-radius: 0;
+  border-radius: 3px;
   overflow: hidden;
   position: relative;
+  transition: box-shadow 2s ease;
+}
+.photo-item:hover {
+  box-shadow: 2px 2px 25px #FE5858;
 }
 .photo-item:hover .photo-thumbnail img {
   animation: zoom-dezoom 2s forwards;
   overflow: hidden;
-  border-width: 2px;
-  border-color: #E00000;
 }
 
 .photo-thumbnail {
   width: 564px;
   height: 495px;
   border-color: #E00000;
+  border-width: 2px;
   overflow: hidden;
 }
 .photo-thumbnail img {
@@ -261,7 +262,7 @@ a:not(.logo a):hover::after {
      object-fit: cover;
   transition: transform 1s ease;
   border-width: 2px;
-  border-color: #E00000;
+  align-items: center;
 }
 
 .photo-excerpt {
@@ -273,9 +274,20 @@ a:not(.logo a):hover::after {
     transform: scale(1);
   }
   85% {
-    transform: scale(1.2);
+    transform: scale(1.05);
   }
   100% {
     transform: scale(1);
   }
+}
+.photo-single {
+  display: flex;
+  width: 100%;
+}
+
+.photo-info {
+  width: 50%;
+}
+.photo-info .photo-thumbnail {
+  width: 50%;
 }

@@ -6,28 +6,24 @@
         while (have_posts()) : the_post();
     ?>
             <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-
-                <!-- Titre de la photo -->
-                <h1><?php the_title(); ?></h1>
-
+            <div class="photo-single">
+                <div class="photo-info">
+                    <!-- Titre de la photo -->
+                    <h1><?php the_title(); ?></h1>
+                    <!-- Informations supplémentaires avec les champs personnalisés (ACF) -->
+                    <div class="photo-meta">
+                        <p>Référence : <?php the_field('reference'); ?></p>
+                        <p>Type de photo : <?php the_field('type'); ?></p>
+                    </div>
+                </div>
                 <!-- Image mise en avant de la photo -->
                 <div class="photo-thumbnail">
                     <?php if (has_post_thumbnail()) {
                         the_post_thumbnail('large'); // Taille personnalisée de l'image
                     } ?>
                 </div>
-
-                <!-- Contenu principal de la photo -->
-                <div class="photo-content">
-                    <?php the_content(); ?>
-                </div>
-
-                <!-- Informations supplémentaires avec les champs personnalisés (ACF) -->
-                <div class="photo-meta">
-                    <p>Référence : <?php the_field('reference'); ?></p>
-                    <p>Type de photo : <?php the_field('type'); ?></p>
-                </div>
-
+            </div>
+          
                 <!-- Navigation entre les photos (précédent / suivant) -->
                 <div class="photo-navigation">
                     <div class="prev-photo">
@@ -41,7 +37,7 @@
 
                 <!-- Photos apparentées (basées sur la même catégorie) -->
                 <div class="related-photos">
-                    <h3>Photos apparentées</h3>
+                    <h3>VOUS AIMEREZ AUSSI</h3>
                     <div class="photo-list">
                         <?php
                         $categories = wp_get_post_terms(get_the_ID(), 'categorie-photo'); // Obtenir les catégories

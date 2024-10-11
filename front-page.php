@@ -4,7 +4,7 @@
 <section class="hero-section">
     <div class="hero-image">
         <?php
-            echo '<img src="' . home_url('/wp-content/uploads/2024/10/nathalie-1-scaled.jpeg') . '" alt="Hero Image">';
+            echo '<img src="' . home_url('/wp-content/uploads/2024/10/nathalie-1.webp') . '" alt="Hero Image">';
         ?>
         <h1 class="hero-title">PHOTOGRAPHE EVENT</h1>
     </div>

@@ -1,4 +1,4 @@
-<?php get_template_part( 'template-parts/header' ); ?>
+<?php get_template_part('template-parts/header'); ?>
 
 <main>
     <?php
@@ -8,22 +8,53 @@
             <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
             <div class="photo-single">
                 <div class="photo-info">
-                    <!-- Titre de la photo -->
-                    <h1><?php the_title(); ?></h1>
+                    <h2 class="photo-title">
+                        <?php
+                        $title = get_the_title();
+                        $words = explode(' ', $title);
+                        if (count($words) > 1) {
+                            echo $words[0] . '<br>' . implode(' ', array_slice($words, 1));
+                        } else {
+                            echo $title;
+                        }
+                        ?>
+                    </h2>
                     <!-- Informations supplémentaires avec les champs personnalisés (ACF) -->
                     <div class="photo-meta">
-                        <p>Référence : <?php the_field('reference'); ?></p>
-                        <p>Type de photo : <?php the_field('type'); ?></p>
+                        <p>RÉFÉRENCE : <?php the_field('reference'); ?></p>
+                        <p>CATÉGORIE : 
+                            <?php
+                            $categories = get_the_terms(get_the_ID(), 'categorie-photo');
+                            if ($categories && !is_wp_error($categories)) {
+                                $category_names = wp_list_pluck($categories, 'name');
+                                echo implode(', ', $category_names);
+                            } else {
+                                echo 'Non spécifié';
+                            }
+                            ?>
+                        </p>
+                        <p>FORMAT : 
+                            <?php
+                            $formats = get_the_terms(get_the_ID(), 'format-photo');
+                            if ($formats && !is_wp_error($formats)) {
+                                $format_names = wp_list_pluck($formats, 'name');
+                                echo implode(', ', $format_names);
+                            } else {
+                                echo 'Non spécifié';
+                            }
+                            ?>
+                        </p>
+                        <p>TYPE : <?php the_field('type'); ?></p>
+                        <p>ANNÉE : <?php echo get_the_date('Y'); ?></p>
                     </div>
                 </div>
                 <!-- Image mise en avant de la photo -->
-                <div class="photo-thumbnail">
+                <div class="thumbnail-photo">
                     <?php if (has_post_thumbnail()) {
-                        the_post_thumbnail('large'); // Taille personnalisée de l'image
+                        the_post_thumbnail('full-size'); // Taille personnalisée de l'image
                     } ?>
                 </div>
             </div>
-          
                 <!-- Navigation entre les photos (précédent / suivant) -->
                 <div class="photo-navigation">
                     <div class="prev-photo">
@@ -33,7 +64,6 @@
                         <?php next_post_link('%link', 'Photo suivante →'); ?>
                     </div>
                 </div>
-
 
                 <!-- Photos apparentées (basées sur la même catégorie) -->
                 <div class="related-photos">

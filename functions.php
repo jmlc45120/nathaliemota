@@ -3,7 +3,7 @@
 function theme_nathaliemota_enqueue_styles()
 {
     // Chargement des polices Google Fonts
-    wp_enqueue_style('google-fonts', 'https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Poppins:wght@300&display=swap', false);
+    wp_enqueue_style('google-fonts', 'https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Poppins:wght@300;500&display=swap', false);
 
     // Chargement du fichier CSS généré à partir du SCSS
     wp_enqueue_style('main-style', get_template_directory_uri() . '/assets/css/style.css');
@@ -11,7 +11,7 @@ function theme_nathaliemota_enqueue_styles()
     // Chargement du script JavaScript pour la modale
     wp_enqueue_script('main-scripts', get_template_directory_uri() . '/assets/js/scripts.js', array('jquery'), null, true);
 
-    // Récupérer la valeur ACF "Référence" de la photo pour affichage dans modale
+    // Récupérer la valeur ACF "Référence" de la photo pour affichage dans la modale
     $reference_value = get_field('reference');
 
     // Passer la valeur "Référence" à JavaScript
@@ -30,6 +30,7 @@ function theme_setup() {
         'flex-width'  => true,
     ));
 }
+
 add_action('after_setup_theme', 'theme_setup');
 
 // Enregistrer le menu de navigation
@@ -62,3 +63,4 @@ function create_photo_post_type() {
     );
 }
 add_action('init', 'create_photo_post_type');
+

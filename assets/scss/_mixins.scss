@@ -1,0 +1,20 @@
+@mixin description-photo-font{
+    font-family:$font-monospace;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+}
+
+@mixin modale-font{
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+}
+
+@mixin header-footer-font{
+    font-family:$font-monospace;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+}

@@ -1,7 +1,64 @@
 body {
+  font-family: "Space Mono", monospace;
+}
+
+h1 {
+  font-family: "Space Mono", monospace;
+  font-size: 96px;
+  font-style: italic;
+  font-weight: 700;
+  color: black;
+}
+
+h2 {
+  font-family: "Space Mono", monospace;
+  font-size: 66px;
+  font-style: italic;
+  font-weight: 400;
+  color: black;
+}
+
+h3 {
+  font-family: "Space Mono", monospace;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  color: black;
+}
+
+p {
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 300;
+  color: black;
+}
+
+.wpcf7-form.init label {
+  font-family: "Poppins", sans-serif;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+}
+
+.photo-meta p label {
+  font-family: "Space Mono", monospace;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+}
+
+.header__nav a, .site-info a, .site-info p {
+  font-family: "Space Mono", monospace;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+}
+
+body {
   margin: 0;
   padding: 0;
-  font-family: "Space Mono", monospace;
   color: black;
 }
 
@@ -143,43 +200,71 @@ a:not(.logo a):hover::after {
   top: 0;
   width: 100%;
   height: 100%;
-  overflow: hidden;
+  margin: 0;
+  padding: 0;
   -webkit-backdrop-filter: blur(3px);
           backdrop-filter: blur(3px);
 }
-
-.contact-modal-content {
+.contact-modal.open {
   display: flex;
   justify-content: center;
-  background-color: #fff;
-  margin: 15% auto;
-  padding: 20px;
-  border: 1px solid #888;
-  border-radius: 10px;
-  width: 20%;
-  max-width: 600px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  align-items: center;
 }
 
-.contact-label {
-  display: block;
-  padding-bottom: 50px;
-  margin-bottom: 10px;
+.contact-modal-content {
+  background-color: #fff;
+  width: 100%;
+  height: 80%;
+  max-width: 597px;
+  max-height: 769px;
+  padding: 0px;
+  border: 5px solid black;
+  border-radius: 2px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.modal-header {
+  display: flex;
+  margin: 20px 0px 30px -150px;
+  width: 150%;
+}
+.modal-header img {
+  justify-content: center;
+  width: 100%;
+  height: auto;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.modal-fields {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.contact-label label {
+  padding-bottom: 100px;
+  margin: 0 0 10px 0px;
   font-weight: bold;
 }
 
 .contact-input,
 .contact-textarea {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 20px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
+  max-width: 263px;
+  height: 40px;
+  border: 1px solid #B8BBC2;
+  border-radius: 8px;
   box-sizing: border-box;
+  margin: 0;
+  padding-top: 40px;
 }
 
 .contact-textarea {
-  height: 150px;
+  height: 210px;
   resize: none;
 }
 
@@ -188,31 +273,35 @@ a:not(.logo a):hover::after {
   justify-content: center;
   position: relative;
   margin: 0;
+  max-width: 263px;
   width: 100%;
+  height: 50px;
 }
 
 .wpcf7-submit.has-spinner {
-  padding: 15px 30px;
-  font-size: 18px;
-  background-color: #E00000;
-  color: #fff;
+  width: 263px;
+  height: 50px;
+  font-size: 12px;
+  background-color: #D8D8D8;
+  color: black;
   border: none;
-  border-radius: 5px;
+  border-radius: 3px;
   cursor: pointer;
   text-align: center;
-}
-
-.wpcf7-submit.has-spinner:hover {
-  background-color: #FE5858;
 }
 
 .wpcf7-spinner {
   position: absolute;
   top: 50%;
-  right: 10px;
+  right: 0px;
   transform: translateY(-50%);
   display: inline-block;
   vertical-align: middle;
+}
+
+.wpcf7-form.init p {
+  margin-block-end: 0 !important;
+  padding: 0;
 }
 
 .photo-archive {
@@ -286,8 +375,27 @@ a:not(.logo a):hover::after {
 }
 
 .photo-info {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  justify-content: end;
+}
+.photo-info p {
+  padding-bottom: 10px;
+}
+
+.photo-title {
+  text-align: left;
+  line-height: 0.9;
+  margin-bottom: 10px;
+}
+
+.thumbnail-photo {
   width: 50%;
 }
-.photo-info .photo-thumbnail {
-  width: 50%;
+.thumbnail-photo img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
 }

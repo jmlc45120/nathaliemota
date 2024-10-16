@@ -1,11 +1,12 @@
-// imports -------------------------------------------
+// imports MIXINS ------------------------------------
+@import 'mixins';
+// imports VARIABLES ---------------------------------
 @import 'variables';
-// imports -------------------------------------------
+@import 'typography';
 
 body {
     margin: 0;
     padding: 0;
-    font-family: 'Space Mono', monospace;
     color: black;
 }
 
@@ -16,6 +17,7 @@ body {
     margin: 0 auto;
     padding: 0 0em; // Ajout de padding pour les marges internes
 }
+
 
 main {
     display: flex;
@@ -137,6 +139,7 @@ a:not(.logo a) {
 // ------------------------------------------------------------------------
 // --------------------------- STYLES DU FOOTER ---------------------------
 // ------------------------------------------------------------------------
+
 .site-info {
     display: flex;
     justify-content: center;
@@ -144,12 +147,12 @@ a:not(.logo a) {
     p {
         margin-left:50px;
     }
-    
 }
 
 // ------------------------------------------------------------------------
 // -------------------------- STYLES DE LA MODALE -------------------------
 // ------------------------------------------------------------------------
+
 .contact-modal {
     display: none;
     position: fixed;
@@ -158,43 +161,69 @@ a:not(.logo a) {
     top: 0;
     width: 100%;
     height: 100%;
-    overflow: hidden;
+    margin: 0;
+    padding: 0;
     backdrop-filter: blur(3px);
+        &.open {
+        display:flex;
+        justify-content: center;
+        align-items: center;
+        }
 }
-
 
 .contact-modal-content {
-    display: flex;
-    justify-content: center;
     background-color: #fff;
-    margin: 15% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    border-radius: 10px; // Arrondir les coins de la modale
-    width: 20%;
-    max-width: 600px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    height:80%;
+    max-width: 597px;
+    max-height: 769px;
+    padding: 0px;
+    border: 5px solid black;
+    border-radius: 2px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+    overflow:hidden;
 }
 
-.contact-label {
-    display: block;
-    padding-bottom: 50px;
-    margin-bottom: 10px;
+.modal-header {
+    display:flex;
+    margin: 20px 0px 30px -150px;
+    width:150%;
+    img {
+        justify-content: center;
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+    }
+}
+
+.modal-fields {
+    display: flex;
+    flex-direction: column;
+    align-items: center; // Centre les champs horizontalement
+    justify-content: center;
+    width: 100%; // Ajuster la largeur pour s'adapter à la modale
+    margin:0 auto;
+}
+
+.contact-label label {
+    padding-bottom: 100px;
+    margin: 0 0 10px 0px;
     font-weight: bold;
 }
 
 .contact-input,
 .contact-textarea {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 10px; // Arrondir les coins des champs
+    max-width: 263px;
+    height:40px;
+    border: 1px solid #B8BBC2;
+    border-radius: 8px;
     box-sizing: border-box;
+    margin:0;
+    padding-top:40px;
 }
 
 .contact-textarea {
-    height: 150px;
+    height: 210px;
     resize: none;
 }
 
@@ -203,31 +232,34 @@ a:not(.logo a) {
     justify-content: center;
     position: relative;
     margin: 0;
+    max-width: 263px;
     width: 100%;
+    height:50px;
 }
 
 .wpcf7-submit.has-spinner {
-    padding: 15px 30px; // Augmenter le padding pour agrandir le bouton
-    font-size: 18px; // Augmenter la taille de la police
-    background-color: $color-primary;
-    color: #fff;
+    width:263px;
+    height:50px;
+    font-size: 12px;
+    background-color: #D8D8D8;
+    color: black;
     border: none;
-    border-radius: 5px; // Arrondir les coins du bouton
+    border-radius: 3px;
     cursor: pointer;
     text-align: center;
-}
-
-.wpcf7-submit.has-spinner:hover {
-    background-color: $color-secondary;
 }
 
 .wpcf7-spinner {
     position: absolute;
     top: 50%;
-    right: 10px;
+    right: 0px;
     transform: translateY(-50%);
     display: inline-block;
     vertical-align: middle;
+}
+.wpcf7-form.init p{
+    margin-block-end: 0 !important;
+    padding:0;
 }
 // ------------------------------------------------------------------------
 // -------------------- STYLES SUR AFFICHAGES DES PHOTO -------------------
@@ -237,8 +269,7 @@ a:not(.logo a) {
     display: flex;
     flex-wrap: wrap;
     margin:0;
-    padding:0;
-   
+    padding:0; 
 }
 
 .photo-grid {
@@ -307,8 +338,28 @@ a:not(.logo a) {
     display: flex;
     width: 100%;
 }
+
 .photo-info {
+    display: flex;
+    flex-direction: column;
     width:50%;
-    .photo-thumbnail{
+    justify-content:end;
+    p{
+        padding-bottom:10px;
+    }
+}
+
+.photo-title {
+    text-align: left;
+    line-height: 0.9;
+    margin-bottom:10px;
+}
+
+.thumbnail-photo{
         width:50%;
-}}
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+}

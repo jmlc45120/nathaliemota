@@ -109,17 +109,7 @@
                         ));
                         if ($related_photos->have_posts()) :
                             while ($related_photos->have_posts()) : $related_photos->the_post();
-                                ?>
-                                <div class="related-photo-item">
-                                    <a href="<?php the_permalink(); ?>" class="photo-link">
-                                        <?php the_post_thumbnail('large'); ?>
-                                        <div class="photo-overlay">
-                                            <span class="icon-eye"><i class="fas fa-eye"></i></span>
-                                            <span class="icon-fullscreen"><i class="fas fa-expand-arrows-alt"></i></span>
-                                        </div>
-                                    </a>
-                                </div>
-                                <?php
+                                get_template_part('template-parts/photo_block'); // Inclure le bloc photo
                             endwhile;
                             wp_reset_postdata();
                         endif;

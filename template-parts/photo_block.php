@@ -1,13 +1,11 @@
-<div class="photo-block">
-    <a href="<?php the_permalink(); ?>">
+<div class="related-photo-item">
+    <a href="<?php the_permalink(); ?>" class="photo-link">
         <?php if (has_post_thumbnail()) : ?>
-            <div class="photo-thumbnail">
-                <?php the_post_thumbnail('thumbnail'); ?>
-            </div>
+            <?php the_post_thumbnail('large'); ?>
         <?php endif; ?>
-        <div class="photo-info">
-            <h4><?php the_title(); ?></h4>
-            <p><?php the_excerpt(); ?></p>
+        <div class="photo-overlay">
+            <span class="icon-eye"><i class="fas fa-eye"></i></span>
+            <span class="icon-fullscreen"><i class="fas fa-expand-arrows-alt"></i></span>
         </div>
     </a>
 </div>

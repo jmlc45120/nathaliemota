@@ -4,6 +4,11 @@
 @import 'variables';
 @import 'typography';
 
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
 body {
     margin: 0;
     padding: 0;
@@ -15,7 +20,7 @@ body {
     width: 100%;
     background-color: rgb(248, 248, 248);
     margin: 0 auto;
-    padding: 0 0em; // Ajout de padding pour les marges internes
+    padding: 0
 }
 
 
@@ -28,7 +33,7 @@ main {
 
 .header {
     &__container {
-        margin: 0 120px;
+        margin: 0 146px;
         height: 80px;
         display: flex;
         justify-content: space-between;
@@ -54,11 +59,12 @@ main {
 }
 article{
     padding:0;
-    max-width:1200px;
+    max-width:1148px;
     width:100%;
 
 }
-a:not(.logo a) {
+.header__container .header__nav a,
+.footer__container .site-info a {
     position: relative;
     font-size: 16px;
     text-decoration: none;
@@ -164,24 +170,23 @@ a:not(.logo a) {
     margin: 0;
     padding: 0;
     backdrop-filter: blur(3px);
-        &.open {
-        display:flex;
-        justify-content: center;
-        align-items: center;
-        }
-}
-
-.contact-modal-content {
-    background-color: #fff;
-    width: 100%;
-    height:80%;
-    max-width: 597px;
-    max-height: 769px;
-    padding: 0px;
-    border: 5px solid black;
-    border-radius: 2px;
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
-    overflow:hidden;
+    &.open {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    }
+    &-content {
+        background-color: #fff;
+        width: 100%;
+        height:80%;
+        max-width: 597px;
+        max-height: 769px;
+        padding: 0px;
+        border: 5px solid black;
+        border-radius: 2px;
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+        overflow:hidden;
+    }
 }
 
 .modal-header {
@@ -199,17 +204,17 @@ a:not(.logo a) {
 .modal-fields {
     display: flex;
     flex-direction: column;
-    align-items: center; // Centre les champs horizontalement
+    align-items: center;
     justify-content: center;
-    width: 100%; // Ajuster la largeur pour s'adapter à la modale
+    width: 100%;
     margin:0 auto;
 }
 
-.contact-label label {
-    padding-bottom: 100px;
-    margin: 0 0 10px 0px;
-    font-weight: bold;
-}
+// .contact-label label {
+//     padding-bottom: 100px;
+//     margin: 0 0 10px 0px;
+//     font-weight: bold;
+// }
 
 .contact-input,
 .contact-textarea {
@@ -218,13 +223,15 @@ a:not(.logo a) {
     border: 1px solid #B8BBC2;
     border-radius: 8px;
     box-sizing: border-box;
-    margin:0;
-    padding-top:40px;
+    margin-top:1px;
 }
-
+// .contact-input{
+//     margin-bottom:0px;
+// }
 .contact-textarea {
+    // margin-bottom:5px;
     height: 210px;
-    resize: none;
+
 }
 
 .contact-submit-container {
@@ -236,8 +243,20 @@ a:not(.logo a) {
     width: 100%;
     height:50px;
 }
+#wpcf7-f44-o1,.wpcf7-form.sent,.wpcf7-form.invalid{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    font-size: 20px;
+    font-weight: 600;
+    color: #000;
+}
 
 .wpcf7-submit.has-spinner {
+    position:relative;
     width:263px;
     height:50px;
     font-size: 12px;
@@ -257,12 +276,9 @@ a:not(.logo a) {
     display: inline-block;
     vertical-align: middle;
 }
-.wpcf7-form.init p{
-    margin-block-end: 0 !important;
-    padding:0;
-}
+
 // ------------------------------------------------------------------------
-// -------------------- STYLES SUR AFFICHAGES DES PHOTO -------------------
+// -------------- STYLES SUR DISPOSITION DES PHOTOS ACCUEIL ---------------
 // ------------------------------------------------------------------------
 
 .photo-archive {
@@ -331,18 +347,21 @@ a:not(.logo a) {
     }
 }
 // ------------------------------------------------------------------------
-// -------------------------- STYLES SINGLE PHOTO--------------------------
+// -------------------------- STYLES SINGLE PHOTO -------------------------
 // ------------------------------------------------------------------------
 
 .photo-single {
     display: flex;
+    justify-content: space-between;
+    align-items: end;
     width: 100%;
+    height:auto;
 }
 
 .photo-info {
     display: flex;
     flex-direction: column;
-    width:50%;
+    width:564px;
     justify-content:end;
     p{
         padding-bottom:10px;
@@ -356,10 +375,148 @@ a:not(.logo a) {
 }
 
 .thumbnail-photo{
-        width:50%;
+    height:100%;
+    width:564px;
         img {
             width: 100%;
-            height: 100%;
+            height: auto;
             object-fit: contain;
         }
+}
+
+.photo-meta {
+    border-bottom: 1px solid #000; // Ajoute un trait plein de 1 pixel en bas
+    padding: 0 10px 10px 0; // Ajoute un espace en bas pour éviter que le contenu ne touche le trait
+    margin:0 0px 5px 0;
+}
+.photo-navigation{
+    display:flex;
+    justify-content:space-between;
+    height:118px;
+    margin:0;
+    padding:0px;
+    
+    border-bottom: 1px solid #000; // Ajoute un trait plein de 1 pixel en bas
+}
+.single-cta{
+    margin:0 ;
+    padding: 0 10px 0 0 ;
+    width:564px;
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+}
+button.open-contact-modal{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width:272px;
+    height:50px;
+    border-radius: 2px;
+    border:none;
+    background-color: #D8D8D8;
+    &:hover{
+        background-color: #B8BBC2;
+        font-weight: 600;
+        cursor:pointer;
+    }
+}
+.long-arrow {
+    display: inline-block;
+    font-size: 25px;
+    line-height: 1;
+}
+.card-nav{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+}
+
+.card-img {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    img {
+        width: 81px;
+        height: 71px;
+        object-fit: cover;
+    }
+}
+.arrow-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width:80px;
+    margin: 3px 0;
+}
+
+.prev-photo img,
+.next-photo img {
+    width: 30px; // Ajuster la taille de l'image
+    height: auto;
+}
+
+.next-photo img {
+
+    margin-right: 0; // Supprimer l'espace à droite pour la flèche droite
+}
+// ------------------------------------------------------------------------
+// ------------------------- VOUS AIMEREZ AUSSI----------------------------
+
+.related-photos {
+    margin-top: 80px;
+}
+
+.photo-list {
+    display: flex;
+    justify-content: space-between;
+    margin: 50px auto;
+    gap: 20px;
+}
+
+.related-photo-item {
+    position: relative;
+    width: 564px; // Ajustez la taille selon vos besoins
+    height: 495px; // Ajustez la taille selon vos besoins
+    overflow: hidden;
+}
+
+.photo-link {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.photo-link img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.photo-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.photo-link:hover .photo-overlay {
+    opacity: 1;
+}
+
+.icon-eye,
+.icon-fullscreen {
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
 }

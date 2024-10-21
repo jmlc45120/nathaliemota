@@ -31,11 +31,11 @@ p {
     color: black;
 }
 
-.wpcf7-form.init label{
+.contact-modal-content p{
     @include modale-font;
 }
 
-.photo-meta p label{ // Défintion des polices pour description dans "single photo"
+.photo-meta p{ // Défintion des polices pour description dans "single photo"
     @include description-photo-font;
 }
 

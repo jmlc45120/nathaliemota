@@ -1,4 +1,4 @@
-<footer>
+<footer class="footer__container">
     <div class="footer-widgets">
         <!-- Intégration des widgets ou autres contenus -->
     </div>

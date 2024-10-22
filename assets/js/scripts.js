@@ -21,56 +21,83 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Fermer la modale en cliquant en dehors du contenu
     window.addEventListener('click', function(event) {
-        // Vérifie que le clic est en dehors de la modale
         if (event.target === modal && !modalContent.contains(event.target)) {
             modal.classList.remove('open');
         }
-
     });
+
+    // Fonction pour changer l'image de la miniature
+    function changeThumbnail(link, thumbnail) {
+        link.addEventListener('mouseover', function() {
+            thumbnail.src = link.getAttribute('data-thumbnail');
+        });
+        link.addEventListener('mouseout', function() {
+            thumbnail.src = thumbnail.getAttribute('data-current-thumbnail');
+        });
+    }
 
     // Changer l'image de la miniature au survol des flèches
-    if (prevPhotoLink) {
-        console.log('Previous photo link found:', prevPhotoLink);
-        prevPhotoLink.addEventListener('mouseover', function() {
-            var prevPhotoThumbnail = prevPhotoLink.getAttribute('data-thumbnail'); // URL de la miniature de la photo précédente
-            console.log('Previous photo thumbnail URL:', prevPhotoThumbnail);
-            thumbnail.src = prevPhotoThumbnail;
-            console.log('Thumbnail src updated to:', thumbnail.src);
-        });
+    if (prevPhotoLink) changeThumbnail(prevPhotoLink, thumbnail);
+    if (nextPhotoLink) changeThumbnail(nextPhotoLink, thumbnail);
 
-        prevPhotoLink.addEventListener('mouseout', function() {
-            var currentThumbnail = thumbnail.getAttribute('data-current-thumbnail'); // URL de la miniature de la photo actuelle
-            console.log('Reverting to current photo thumbnail URL:', currentThumbnail);
-            thumbnail.src = currentThumbnail;
-            console.log('Thumbnail src reverted to:', thumbnail.src);
+    // Pagination infinie
+    var page = 2;
+    var loadMoreButton = document.getElementById('load-more');
+    var loadMoreContainer = document.querySelector('.photo-archive');
+
+    if (loadMoreButton) {
+        loadMoreButton.addEventListener('click', function() {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', '/wp-admin/admin-ajax.php?action=load_more_photos&page=' + page, true);
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    var response = xhr.responseText;
+                    var parser = new DOMParser();
+                    var doc = parser.parseFromString(response, 'text/html');
+                    var newPhotos = doc.querySelector('.photo-grid');
+                    if (newPhotos) {
+                        loadMoreContainer.querySelector('.photo-grid').insertAdjacentHTML('beforeend', newPhotos.innerHTML);
+                        page++;
+                    }
+                }
+            };
+            xhr.onerror = function() {
+                console.error('Ajax request error');
+            };
+            xhr.send();
         });
     }
 
-    if (nextPhotoLink) {
-        console.log('Next photo link found:', nextPhotoLink);
-        nextPhotoLink.addEventListener('mouseover', function() {
-            var nextPhotoThumbnail = nextPhotoLink.getAttribute('data-thumbnail'); // URL de la miniature de la photo suivante
-            console.log('Next photo thumbnail URL:', nextPhotoThumbnail);
-            thumbnail.src = nextPhotoThumbnail;
-            console.log('Thumbnail src updated to:', thumbnail.src);
-        });
+    // Filtres et tri
+    var categoryFilter = document.getElementById('category-filter');
+    var formatFilter = document.getElementById('format-filter');
+    var sortFilter = document.getElementById('sort-filter');
 
-        nextPhotoLink.addEventListener('mouseout', function() {
-            var currentThumbnail = thumbnail.getAttribute('data-current-thumbnail'); // URL de la miniature de la photo actuelle
-            console.log('Reverting to current photo thumbnail URL:', currentThumbnail);
-            thumbnail.src = currentThumbnail;
-            console.log('Thumbnail src reverted to:', thumbnail.src);
-        });
+    function applyFilters() {
+        var category = categoryFilter.value;
+        var format = formatFilter.value;
+        var sort = sortFilter.value;
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '/wp-admin/admin-ajax.php?action=filter_photos&category=' + category + '&format=' + format + '&sort=' + sort, true);
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                var response = xhr.responseText;
+                var parser = new DOMParser();
+                var doc = parser.parseFromString(response, 'text/html');
+                var newPhotos = doc.querySelector('.photo-grid');
+                if (newPhotos) {
+                    loadMoreContainer.querySelector('.photo-grid').innerHTML = newPhotos.innerHTML;
+                }
+            }
+        };
+        xhr.onerror = function() {
+            console.error('Ajax request error');
+        };
+        xhr.send();
     }
-    document.querySelectorAll('.icon-fullscreen').forEach(function(icon) {
-        icon.addEventListener('click', function(event) {
-            event.preventDefault();
-            var imgSrc = this.closest('.photo-link').querySelector('img').src;
-            // Créer un lien temporaire pour utiliser Lightbox2
-            var tempLink = document.createElement('a');
-            tempLink.href = imgSrc;
-            tempLink.setAttribute('data-lightbox', 'image-1');
-            tempLink.click();
-        });
-    });
+
+    categoryFilter.addEventListener('change', applyFilters);
+    formatFilter.addEventListener('change', applyFilters);
+    sortFilter.addEventListener('change', applyFilters);
 });

@@ -51,7 +51,7 @@
                 <!-- Image mise en avant de la photo -->
                 <div class="thumbnail-photo">
                     <?php if (has_post_thumbnail()) {
-                        the_post_thumbnail('full-size'); // Taille personnalisée de l'image
+                        the_post_thumbnail('full-size');
                     } ?>
                 </div>
             </div>
@@ -106,12 +106,16 @@
                                     'terms' => $category_ids,
                                 ),
                             ),
-                        ));
-                        if ($related_photos->have_posts()) :
-                            while ($related_photos->have_posts()) : $related_photos->the_post();
-                                get_template_part('template-parts/photo_block'); // Inclure le bloc photo
-                            endwhile;
-                            wp_reset_postdata();
+                        ));?>
+                        <?php if ($related_photos->have_posts()) :?>
+                            <div class="photo-archive">
+                                <div class="photo-grid">  
+                                <?php while ($related_photos->have_posts()) : $related_photos->the_post();
+                                        get_template_part('template-parts/photo_block'); // Inclure le bloc photo
+                                    endwhile;?>
+                                </div>
+                            </div>            
+                        <?php wp_reset_postdata();
                         endif;
                     }
                     ?>

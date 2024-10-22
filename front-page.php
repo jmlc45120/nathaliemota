@@ -24,7 +24,7 @@
                 }
             }
 
-            // Sélectionner une image aléatoire parmi les images paysage
+            // Sélectionner une image aléatoire parmi les images au format paysage
             if ($landscape_images) {
                 $random_image = $landscape_images[array_rand($landscape_images)];
                 $random_image_url = wp_get_attachment_url($random_image->ID);
@@ -74,7 +74,7 @@
     <?php
     $args = array(
         'post_type' => 'photo',
-        'posts_per_page' => 8, // Nombre de photos à afficher
+        'posts_per_page' => 8,
         'paged' => 1,
     );
     $photo_query = new WP_Query($args);
@@ -83,7 +83,7 @@
         <div class="photo-archive">
             <div class="photo-grid">             
                 <?php while ($photo_query->have_posts()) : $photo_query->the_post(); ?>
-                    <?php get_template_part('template-parts/photo_block'); // Inclure le bloc photo ?>
+                    <?php get_template_part('template-parts/photo_block'); ?>
                 <?php endwhile; ?>
             </div>
         </div>

@@ -1,0 +1,63 @@
+#custom-lightbox {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Empêche le scroll général de la page */
+}
+
+#custom-lightbox.open {
+    display: flex;
+}
+
+.lightbox-content {
+    position: relative;
+    max-width: 90%;
+    max-height: 90%;
+    overflow-y: scroll; /* Permet le scroll vertical */
+    -ms-overflow-style: none;  /* Masquer le scroll dans IE et Edge */
+    scrollbar-width: none;  /* Masquer le scroll dans Firefox */
+}
+
+.lightbox-content::-webkit-scrollbar {
+    display: none; /* Masquer le scroll dans Chrome, Safari et Opera */
+}
+
+.lightbox-img {
+    max-width: 100%;
+    height: auto; /* Assure que l'image conserve son ratio en largeur */
+    display: block;
+}
+
+.lightbox-close, .lightbox-prev, .lightbox-next {
+    position: absolute;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+.lightbox-close {
+    top: 10px;
+    right: 10px;
+}
+
+.lightbox-prev {
+    background: url(/wp-content/uploads/2024/10/arrow-left.png) center center;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+}
+
+.lightbox-next {
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+}

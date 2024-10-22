@@ -5,26 +5,31 @@ document.addEventListener('DOMContentLoaded', function() {
     var prevPhotoLink = document.querySelector('.prev-photo a');
     var nextPhotoLink = document.querySelector('.next-photo a');
 
-    // Ouvrir la modale
-    document.querySelectorAll('.open-contact-modal').forEach(function(button) {
-        button.addEventListener('click', function() {
-            modal.classList.add('open');  // Ajoute une classe pour ouvrir la modale
+    // Vérifiez que modal existe avant d'ajouter des écouteurs d'événements
+    if (modal) {
+        // Ouvrir la modale
+        document.querySelectorAll('.open-contact-modal').forEach(function(button) {
+            button.addEventListener('click', function() {
+                modal.classList.add('open');  // Ajoute une classe pour ouvrir la modale
+            });
         });
-    });
 
-    // Changer la valeur du champ avec jQuery
-    jQuery(document).ready(function($) {
-        if (typeof acfData !== 'undefined' && acfData.reference) {
-            $('input[name="your-subject"]').val(acfData.reference);
-        }
-    });
+        // Changer la valeur du champ avec jQuery
+        jQuery(document).ready(function($) {
+            if (typeof acfData !== 'undefined' && acfData.reference) {
+                $('input[name="your-subject"]').val(acfData.reference);
+            }
+        });
 
-    // Fermer la modale en cliquant en dehors du contenu
-    window.addEventListener('click', function(event) {
-        if (event.target === modal && !modalContent.contains(event.target)) {
-            modal.classList.remove('open');
-        }
-    });
+        // Fermer la modale en cliquant en dehors du contenu
+        window.addEventListener('click', function(event) {
+            if (event.target === modal && !modalContent.contains(event.target)) {
+                modal.classList.remove('open');
+            }
+        });
+    } else {
+        console.error('Modal element not found');
+    }
 
     // Fonction pour changer l'image de la miniature
     function changeThumbnail(link, thumbnail) {
@@ -74,9 +79,9 @@ document.addEventListener('DOMContentLoaded', function() {
     var sortFilter = document.getElementById('sort-filter');
 
     function applyFilters() {
-        var category = categoryFilter.value;
-        var format = formatFilter.value;
-        var sort = sortFilter.value;
+        var category = categoryFilter ? categoryFilter.value : '';
+        var format = formatFilter ? formatFilter.value : '';
+        var sort = sortFilter ? sortFilter.value : '';
 
         var xhr = new XMLHttpRequest();
         xhr.open('GET', '/wp-admin/admin-ajax.php?action=filter_photos&category=' + category + '&format=' + format + '&sort=' + sort, true);
@@ -97,7 +102,7 @@ document.addEventListener('DOMContentLoaded', function() {
         xhr.send();
     }
 
-    categoryFilter.addEventListener('change', applyFilters);
-    formatFilter.addEventListener('change', applyFilters);
-    sortFilter.addEventListener('change', applyFilters);
+    if (categoryFilter) categoryFilter.addEventListener('change', applyFilters);
+    if (formatFilter) formatFilter.addEventListener('change', applyFilters);
+    if (sortFilter) sortFilter.addEventListener('change', applyFilters);
 });

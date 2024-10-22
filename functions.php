@@ -1,5 +1,5 @@
 <?php
-// Enqueue styles and scripts
+// Fonction pour enqueuee les styles et scripts
 function theme_nathaliemota_enqueue_styles()
 {
     // Chargement des polices Google Fonts
@@ -21,6 +21,13 @@ function theme_nathaliemota_enqueue_styles()
 }
 add_action('wp_enqueue_scripts', 'theme_nathaliemota_enqueue_styles');
 
+// Fonction pour enqueuer les scripts et styles pour la lightbox
+function custom_lightbox_scripts() {
+    wp_enqueue_script('custom-lightbox', get_template_directory_uri() . '/assets/js/lightbox.js', array(), '1.0', true);
+    wp_enqueue_style('custom-lightbox-style', get_template_directory_uri() . '/assets/css/lightbox.css');
+}
+add_action('wp_enqueue_scripts', 'custom_lightbox_scripts');
+
 // Ajouter le support du logo personnalisé
 function theme_setup() {
     add_theme_support('custom-logo', array(
@@ -30,7 +37,6 @@ function theme_setup() {
         'flex-width'  => true,
     ));
 }
-
 add_action('after_setup_theme', 'theme_setup');
 
 // Enregistrer le menu de navigation
@@ -64,6 +70,7 @@ function create_photo_post_type() {
 }
 add_action('init', 'create_photo_post_type');
 
+// Fonction pour charger plus de photos via AJAX
 function load_more_photos() {
     $paged = $_GET['page'];
     $args = array(
@@ -87,6 +94,7 @@ function load_more_photos() {
 add_action('wp_ajax_load_more_photos', 'load_more_photos');
 add_action('wp_ajax_nopriv_load_more_photos', 'load_more_photos');
 
+// Fonction pour filtrer les photos via AJAX
 function filter_photos() {
     $category = isset($_GET['category']) ? sanitize_text_field($_GET['category']) : '';
     $format = isset($_GET['format']) ? sanitize_text_field($_GET['format']) : '';

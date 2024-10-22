@@ -19,7 +19,7 @@
                         }
                         ?>
                     </h2>
-                    <!-- Informations supplémentaires avec les champs personnalisés (ACF) -->
+                    <!-- Informations supplémentaires avec les champs personnalisés ACF -->
                     <div class="photo-meta">
                         <p>RÉFÉRENCE : <?php the_field('reference'); ?></p>
                         <p>CATÉGORIE : 
@@ -92,12 +92,12 @@
                 <h3>VOUS AIMEREZ AUSSI</h3>
                 <div class="photo-list">
                     <?php
-                    $categories = wp_get_post_terms(get_the_ID(), 'categorie-photo'); // Obtenir les catégories
+                    $categories = wp_get_post_terms(get_the_ID(), 'categorie-photo');
                     if ($categories) {
                         $category_ids = wp_list_pluck($categories, 'term_id');
                         $related_photos = new WP_Query(array(
                             'post_type' => 'photo',
-                            'posts_per_page' => 2, // Limiter à 2 photos
+                            'posts_per_page' => 2,
                             'post__not_in' => array(get_the_ID()), // Exclure la photo actuelle
                             'tax_query' => array(
                                 array(
@@ -111,7 +111,7 @@
                             <div class="photo-archive">
                                 <div class="photo-grid">  
                                 <?php while ($related_photos->have_posts()) : $related_photos->the_post();
-                                        get_template_part('template-parts/photo_block'); // Inclure le bloc photo
+                                        get_template_part('template-parts/photo_block');
                                     endwhile;?>
                                 </div>
                             </div>            

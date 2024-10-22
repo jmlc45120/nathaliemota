@@ -5,7 +5,10 @@
         <?php endif; ?>
         <div class="photo-overlay">
             <span class="icon-eye"><i class="fas fa-eye"></i></span>
-            <span class="icon-fullscreen"><i class="fas fa-expand-arrows-alt"></i></span>
+            <!-- L'icône qui déclenche la lightbox -->
+            <span class="icon-fullscreen" data-src="<?php echo wp_get_attachment_image_src(get_post_thumbnail_id(), 'full')[0]; ?>">
+                <i class="fas fa-expand-arrows-alt"></i>
+            </span>
         </div>
     </a>
 </div>

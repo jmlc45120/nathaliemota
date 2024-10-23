@@ -24,7 +24,7 @@ add_action('wp_enqueue_scripts', 'theme_nathaliemota_enqueue_styles');
 // Fonction pour enqueuer les scripts et styles pour la lightbox
 function custom_lightbox_scripts() {
     wp_enqueue_script('custom-lightbox', get_template_directory_uri() . '/assets/js/lightbox.js', array(), '1.0', true);
-    wp_enqueue_style('custom-lightbox-style', get_template_directory_uri() . '/assets/css/lightbox.css');
+    // wp_enqueue_style('custom-lightbox-style', get_template_directory_uri() . '/assets/css/lightbox.css');
 }
 add_action('wp_enqueue_scripts', 'custom_lightbox_scripts');
 

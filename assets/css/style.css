@@ -73,60 +73,108 @@ p {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.8);
-  z-index: 9999;
+  z-index: 5;
   justify-content: center;
   align-items: center;
-  overflow: hidden; /* Empêche le scroll général de la page */
 }
 
 #custom-lightbox.open {
   display: flex;
+  flex-direction: column;
 }
 
 .lightbox-content {
   position: relative;
   max-width: 90%;
   max-height: 90%;
-  overflow-y: scroll; /* Permet le scroll vertical */
-  -ms-overflow-style: none; /* Masquer le scroll dans IE et Edge */
-  scrollbar-width: none; /* Masquer le scroll dans Firefox */
+  overflow-y: scroll;
+  -ms-overflow-style: none; /* Masquer la barre de scroll dans IE et Edge */
+  scrollbar-width: none; /* Masquer la barre de scroll dans Firefox */
 }
 
 .lightbox-content::-webkit-scrollbar {
-  display: none; /* Masquer le scroll dans Chrome, Safari et Opera */
+  display: none; /* Masquer la barre de scroll dans Chrome, Safari et Opera */
 }
 
 .lightbox-img {
   max-width: 100%;
   height: auto; /* Assure que l'image conserve son ratio en largeur */
   display: block;
+  cursor: grab; /* Indique que l'image peut être glissée */
 }
 
-.lightbox-close, .lightbox-prev, .lightbox-next {
-  position: absolute;
-  background: none;
-  border: none;
-  color: white;
-  font-size: 2rem;
-  cursor: pointer;
+.lightbox-img:active {
+  cursor: grabbing; /* Indique que l'image est en cours de glissement */
 }
 
 .lightbox-close {
-  top: 10px;
-  right: 10px;
+  position: fixed;
+  top: 50px;
+  right: 6vw;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 3rem;
+  cursor: pointer;
+}
+
+.lightbox-prev, .lightbox-next {
+  position: fixed;
+  top: 50%;
+  border: none;
+  color: white;
+  font-size: 3rem;
+  cursor: pointer;
 }
 
 .lightbox-prev {
-  background: url(/wp-content/uploads/2024/10/arrow-left.png) center center;
-  top: 50%;
-  left: 10px;
-  transform: translateY(-50%);
+  left: 6vw;
+  width: 120px;
+  height: 100px;
+  background: url("/../../wp-content/uploads/2024/10/arrow-left.png") center center no-repeat;
+  filter: invert(1) brightness(2);
+}
+.lightbox-prev:hover {
+  background: url("/../../wp-content/uploads/2024/10/arrow-left-hover.png") center center no-repeat;
 }
 
 .lightbox-next {
-  top: 50%;
-  right: 10px;
-  transform: translateY(-50%);
+  right: 6vw;
+  width: 120px;
+  height: 100px;
+  background: url("/../../wp-content/uploads/2024/10/arrow-right.png") center center no-repeat;
+  filter: invert(1) brightness(2);
+}
+.lightbox-next:hover {
+  background: url("/../../wp-content/uploads/2024/10/arrow-right-hover.png") center center no-repeat;
+}
+
+.lightbox-info {
+  position: absolute;
+  z-index: 100;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+  color: white;
+  font-size: 1rem;
+}
+
+.lightbox-reference {
+  width: 200px;
+  height: 200px;
+  text-align: left;
+}
+
+.lightbox-category {
+  text-align: right;
+}
+
+/* Désactiver le scroll de l'arrière-plan */
+.no-scroll {
+  overflow: hidden;
 }
 
 *,
@@ -410,15 +458,9 @@ article {
   vertical-align: middle;
 }
 
-.photo-archive {
-  display: flex;
-  flex-wrap: wrap;
-  margin: 0;
-  padding: 0;
-}
-
 .photo-grid {
   display: grid;
+  flex-wrap: wrap;
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
   margin-top: 20px;
@@ -429,52 +471,6 @@ article {
   padding: 0px;
 }
 
-.photo-item {
-  border-radius: 3px;
-  overflow: hidden;
-  position: relative;
-  transition: box-shadow 2s ease;
-}
-.photo-item:hover {
-  box-shadow: 2px 2px 25px #FE5858;
-}
-.photo-item:hover .photo-thumbnail img {
-  animation: zoom-dezoom 2s forwards;
-  overflow: hidden;
-}
-
-.photo-thumbnail {
-  width: 564px;
-  height: 495px;
-  border-color: #E00000;
-  border-width: 2px;
-  overflow: hidden;
-}
-.photo-thumbnail img {
-  width: 100%;
-  height: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
-  transition: transform 1s ease;
-  border-width: 2px;
-  align-items: center;
-}
-
-.photo-excerpt {
-  margin-top: 0px;
-}
-
-@keyframes zoom-dezoom {
-  0% {
-    transform: scale(1);
-  }
-  85% {
-    transform: scale(1.05);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
 #load-more {
   display: flex;
   justify-content: center;
@@ -674,7 +670,8 @@ button.open-contact-modal:hover {
 .icon-eye,
 .icon-fullscreen {
   color: white;
-  font-size: 24px;
+  font-size: 34px;
+  margin: 0 50px;
   cursor: pointer;
 }
 

@@ -2,7 +2,9 @@
 @import 'mixins';
 // imports VARIABLES ---------------------------------
 @import 'variables';
+// imports TYPOGRAPHY ---------------------------------
 @import 'typography';
+// imports LIGHTBOX ---------------------------------
 @import 'lightbox';
 
 *,
@@ -50,7 +52,6 @@ main {
 }
 
 .logo img{
-     
         width: 216px;
         height: auto;
         display: block; // Pour éviter les espaces blancs sous l'image
@@ -65,6 +66,7 @@ article{
     padding:0;
     max-width:1148px;
     width:100%;
+
 
 }
 .header__container .header__nav a,
@@ -230,12 +232,6 @@ article{
     margin:0 auto;
 }
 
-// .contact-label label {
-//     padding-bottom: 100px;
-//     margin: 0 0 10px 0px;
-//     font-weight: bold;
-// }
-
 .contact-input,
 .contact-textarea {
     max-width: 263px;
@@ -298,15 +294,9 @@ article{
 // -------------- STYLES SUR DISPOSITION DES PHOTOS ACCUEIL ---------------
 // ------------------------------------------------------------------------
 
-.photo-archive {
-    display: flex;
-    flex-wrap: wrap;
-    margin:0;
-    padding:0; 
-}
-
 .photo-grid {
     display: grid;
+    flex-wrap: wrap;
     grid-template-columns: repeat(2, 1fr); // Deux colonnes
     gap: 20px; // Espace entre les éléments
     margin-top :20px;
@@ -314,53 +304,6 @@ article{
     article a {
         margin:0px;
         padding:0px;
-    }
-    
-}
-
-.photo-item {
-    border-radius: 3px;
-    overflow: hidden;
-    position: relative;
-    transition: box-shadow 2.0s ease;
-    &:hover {
-        box-shadow: 2px 2px 25px $color-secondary;
-    }
-    &:hover .photo-thumbnail img {
-        animation: zoom-dezoom 2s forwards;
-        overflow: hidden;
-    }
-}
-
-.photo-thumbnail {
-    width: 564px;
-    height: 495px;
-    border-color: $color-primary;
-    border-width: 2px;
-    overflow: hidden;
-    img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: transform 1s ease;
-        border-width: 2px;
-        align-items: center;
-    }
-}
-
-.photo-excerpt {
-    margin-top: 0px;
-}
-// Animation de zoom-dézoom
-@keyframes zoom-dezoom {
-    0% {
-        transform: scale(1);
-    }
-    85% {
-        transform: scale(1.05);
-    }
-    100% {
-        transform: scale(1);
     }
 }
 
@@ -382,6 +325,7 @@ article{
         cursor:pointer;
     }
 }
+
 // ------------------------------------------------------------------------
 // --------------------------- STYLES DU FOOTER ---------------------------
 // ------------------------------------------------------------------------
@@ -567,7 +511,8 @@ button.open-contact-modal{
 .icon-eye,
 .icon-fullscreen {
     color: white;
-    font-size: 24px;
+    font-size: 34px;
+    margin:0 50px ;
     cursor: pointer;
 }
 @media (max-width: 1160px) {

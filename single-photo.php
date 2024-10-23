@@ -4,6 +4,10 @@
     <?php
     if (have_posts()) :
         while (have_posts()) : the_post();
+            $reference = get_field('reference');
+            $categories = get_the_terms(get_the_ID(), 'categorie-photo');
+            $category_names = !empty($categories) && !is_wp_error($categories) ? wp_list_pluck($categories, 'name') : ['Non spécifié'];
+            $category_name = implode(', ', $category_names);
     ?>
         <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
             <div class="photo-single">
@@ -21,18 +25,8 @@
                     </h2>
                     <!-- Informations supplémentaires avec les champs personnalisés ACF -->
                     <div class="photo-meta">
-                        <p>RÉFÉRENCE : <?php the_field('reference'); ?></p>
-                        <p>CATÉGORIE : 
-                            <?php
-                            $categories = get_the_terms(get_the_ID(), 'categorie-photo');
-                            if ($categories && !is_wp_error($categories)) {
-                                $category_names = wp_list_pluck($categories, 'name');
-                                echo implode(', ', $category_names);
-                            } else {
-                                echo 'Non spécifié';
-                            }
-                            ?>
-                        </p>
+                        <p>RÉFÉRENCE : <?php echo esc_html($reference); ?></p>
+                        <p>CATÉGORIE : <?php echo esc_html($category_name); ?></p>
                         <p>FORMAT : 
                             <?php
                             $formats = get_the_terms(get_the_ID(), 'format-photo');
@@ -51,7 +45,16 @@
                 <!-- Image mise en avant de la photo -->
                 <div class="thumbnail-photo">
                     <?php if (has_post_thumbnail()) {
-                        the_post_thumbnail('full-size');
+                        // Récupérer la référence et la catégorie
+                        $reference = esc_html($reference);
+                        $category_name = esc_html($category_name);
+                        
+                        // Ajouter les attributs data-* dans l'image
+                        echo '<img class="icon-fullscreen" 
+                                src="' . get_the_post_thumbnail_url(get_the_ID(), 'full-size') . '" 
+                                alt="' . get_the_title() . '" 
+                                data-reference="' . $reference . '" 
+                                data-category="' . $category_name . '">';
                     } ?>
                 </div>
             </div>

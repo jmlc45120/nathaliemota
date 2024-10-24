@@ -4,6 +4,35 @@ document.addEventListener('DOMContentLoaded', function() {
     var thumbnail = document.getElementById('thumbnail');
     var prevPhotoLink = document.querySelector('.prev-photo a');
     var nextPhotoLink = document.querySelector('.next-photo a');
+    var eyeIcons = document.querySelectorAll('.icon-eye');
+    const heroImage = document.querySelector('.hero-image');
+    const heroTitle = document.querySelector('.hero-title');
+
+    // Déclenchement des animations pour le HERO
+    heroImage.style.opacity = '1';
+    heroTitle.style.opacity = '1';
+
+    eyeIcons.forEach(function(icon) {
+        // Survol de l'icône oeil
+        icon.addEventListener('mouseover', function() {
+            var photoInfo = this.parentElement.querySelector('.photo-info-ovl');
+            if (photoInfo) {
+                photoInfo.style.display = 'block'; // Affiche les informations
+            }
+            else{
+                console.log('No photo info');
+            }});
+
+
+        // Quand on arrête de survoler l'icône
+        icon.addEventListener('mouseout', function() {
+            var photoInfo = this.parentElement.querySelector('.photo-info-ovl');
+            if (photoInfo) {
+                photoInfo.style.display = 'none'; // Cache les informations
+            }
+        });
+    });
+
 
     // Vérifiez que modal existe avant d'ajouter des écouteurs d'événements
     if (modal) {
@@ -14,21 +43,19 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
 
-        // Changer la valeur du champ avec jQuery
+        // Change la valeur du champ avec jQuery
         jQuery(document).ready(function($) {
             if (typeof acfData !== 'undefined' && acfData.reference) {
                 $('input[name="your-subject"]').val(acfData.reference);
             }
         });
 
-        // Fermer la modale en cliquant en dehors du contenu
+        // Ferme la modale en cliquant en dehors du contenu
         window.addEventListener('click', function(event) {
             if (event.target === modal && !modalContent.contains(event.target)) {
                 modal.classList.remove('open');
             }
         });
-    } else {
-        console.error('Modal element not found');
     }
 
     // Fonction pour changer l'image de la miniature

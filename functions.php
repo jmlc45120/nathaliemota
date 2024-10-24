@@ -72,24 +72,29 @@ add_action('init', 'create_photo_post_type');
 
 // Fonction pour charger plus de photos via AJAX
 function load_more_photos() {
-    $paged = $_GET['page'];
+    // Vérification de l'existence du paramètre 'page' et sécurisation
+    $paged = isset($_GET['page']) ? intval($_GET['page']) : 1; // Si 'page' n'est pas défini, on prend la première page par défaut
+
     $args = array(
         'post_type' => 'photo',
-        'posts_per_page' => 8,
-        'paged' => $paged,
+        'posts_per_page' => 8, // Limite le nombre de photos à 8
+        'paged' => $paged, // Pagination dynamique
     );
+
     $photo_query = new WP_Query($args);
 
     if ($photo_query->have_posts()) :
-        echo '<div class="photo-grid">';
+        echo '<div class="photo-grid">'; // Container de la grille de photos
         while ($photo_query->have_posts()) : $photo_query->the_post();
             get_template_part('template-parts/photo_block'); // Inclure le bloc photo
         endwhile;
         echo '</div>';
         wp_reset_postdata();
+    else :
+        echo '<p>Aucune autre photo trouvée.</p>';
     endif;
 
-    wp_die();
+    wp_die(); // Terminer la requête proprement
 }
 add_action('wp_ajax_load_more_photos', 'load_more_photos');
 add_action('wp_ajax_nopriv_load_more_photos', 'load_more_photos');

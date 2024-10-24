@@ -129,24 +129,70 @@ article{
     max-height: 960px;
     justify-content: center;
     align-items: center;
+    
     img {
         width: 100%;
         height: 100%;
-        object-fit: cover; // Assurer que l'image couvre entièrement le conteneur
+        object-fit: cover;
+        opacity: 0;
+        animation: fadeIn 3s forwards;
     }
 
     .hero-title {
         position: absolute;
-        top: 40%;
+        top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
         font-size: clamp(24px, 8vw, 96px);
         font-weight: 700;
         font-style: italic;
         text-align: center;
-        color: transparent; // Rendre l'intérieur des lettres transparent
-        -webkit-text-stroke: 2px white; // Bordure blanche de 3 px pour chaque lettre (pour WebKit)
+        color: transparent;
+        -webkit-text-stroke: 2px white;
         white-space: nowrap;
+        opacity: 0;
+    }
+
+    .photograph {
+        display: inline-block;
+        transform: translateX(-100%); /* Initialement en dehors de l'écran à gauche */
+        opacity: 0;
+        animation: slideInFromLeft 2s forwards 2s; /* Animation de déplacement */
+    }
+
+    .event {
+        display: inline-block;
+        transform: translateY(-200%); /* Initialement en dehors de l'écran en haut */
+        opacity: 0;
+        animation: slideInFromTop 0.3s forwards 3.5s; /* Animation de déplacement */
+    }
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideInFromLeft {
+    0% {
+        opacity: 0; /* Masquer au début de l'animation */
+        transform: translateX(-200%);
+    }
+    100% {
+        opacity: 1; /* Rendre visible à la fin de l'animation */
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInFromTop {
+    0% {
+        opacity: 0; /* Masquer au début de l'animation */
+        transform: translateY(-200%);
+    }
+    100% {
+        opacity: 1; /* Rendre visible à la fin de l'animation */
+        transform: translateY(0);
     }
 }
 // -----------------------------------------------------------------------
@@ -175,6 +221,22 @@ article{
 }
 #format-filter{
     margin: 0 30% 0 3%;
+}
+.hidden-option {
+    color: transparent!important;  /* Rend le texte transparent */
+}
+.hidden-option::before {
+    content: "\00a0";  /* Ajoute un espace insécable pour éviter que la case soit complètement vide */
+}
+#category-filter .hidden-option {
+    color: transparent;
+}
+#category-filter .hidden-option::before {
+    content: "\00a0";
+}
+select:focus .hidden-option,
+select:active .hidden-option {
+    color: transparent !important; /* Assurez-vous que même à l'ouverture, c'est masqué */
 }
 
 // ------------------------------------------------------------------------
@@ -325,6 +387,84 @@ article{
         cursor:pointer;
     }
 }
+// ------------------------------------------------------------------------
+// ------------------------- STYLES PHOTO-BLOCK ---------------------------
+// ------------------------------------------------------------------------
+
+.related-photos {
+    margin-top: 80px;
+}
+
+.photo-list {
+    display: flex;
+    justify-content: center;
+    margin: 50px auto;
+    gap: 20px;
+}
+
+.related-photo-item {
+    display: flex ;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 564px;
+    height: 495px;
+    overflow: hidden;
+}
+
+.photo-link {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.photo-link img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+// ------------------------------------------------------------------------
+// ----------------------- ACCUEIL : PHOTO OVERLAY ------------------------
+// ------------------------------------------------------------------------
+.photo-overlay {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    gap: 60px;
+    background-color: rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.photo-link:hover .photo-overlay {
+    opacity: 1;
+}
+.fas.fa-eye,.icon-fullscreen{
+    opacity: 0.4;
+    &:hover{
+        opacity:0.8;
+    }
+}
+.icon-eye,
+.icon-fullscreen {
+    color: white;
+    font-size: 34px;
+    cursor: pointer;
+}
+.photo-info-ovl{
+    position:relative;
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    padding: 0 120px 120px 0;
+    gap: 10px;
+    color: white;
+}
 
 // ------------------------------------------------------------------------
 // --------------------------- STYLES DU FOOTER ---------------------------
@@ -368,7 +508,7 @@ article{
     margin-bottom:10px;
 }
 
-.thumbnail-photo{
+.thumbnail-photo {
     height:100%;
     width:564px;
         img {
@@ -379,8 +519,8 @@ article{
 }
 
 .photo-meta {
-    border-bottom: 1px solid #000; // Ajoute un trait plein de 1 pixel en bas
-    padding: 0 10px 10px 0; // Ajoute un espace en bas pour éviter que le contenu ne touche le trait
+    border-bottom: 1px solid #000;
+    padding: 0 10px 10px 0;
     margin:0 0px 5px 0;
 }
 .photo-navigation{
@@ -456,80 +596,22 @@ button.open-contact-modal{
 
     margin-right: 0; // Supprimer l'espace à droite pour la flèche droite
 }
-// ------------------------------------------------------------------------
-// ------------------------- VOUS AIMEREZ AUSSI----------------------------
 
-.related-photos {
-    margin-top: 80px;
-}
-
-.photo-list {
-    display: flex;
-    justify-content: center;
-    margin: 50px auto;
-    gap: 20px;
-}
-
-.related-photo-item {
-    position: relative;
-    width: 564px; // Ajustez la taille selon vos besoins
-    height: 495px; // Ajustez la taille selon vos besoins
-    overflow: hidden;
-}
-
-.photo-link {
-    display: block;
-    width: 100%;
-    height: 100%;
-}
-
-.photo-link img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.photo-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    background-color: rgba(0, 0, 0, 0.5);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.photo-link:hover .photo-overlay {
-    opacity: 1;
-}
-
-.icon-eye,
-.icon-fullscreen {
-    color: white;
-    font-size: 34px;
-    margin:0 50px ;
-    cursor: pointer;
-}
 @media (max-width: 1160px) {
     .related-photo-item {
-        width: 40vw; /* 100% de la largeur de l'écran */
-        height: 35vh; /* 70% de la hauteur de l'écran */
+        width: 40vw;
+        height: 35vh;
     }
 }
 @media (max-width: 950px) {
     .related-photo-item {
-        width: 40vw; /* 100% de la largeur de l'écran */
-        height: 30vh; /* 70% de la hauteur de l'écran */
+        width: 40vw;
+        height: 30vh;
     }
 }
 @media (max-width: 800px) {
     .related-photo-item {
-        width: 40vw; /* 100% de la largeur de l'écran */
-        height: 25vh; /* 70% de la hauteur de l'écran */
+        width: 40vw;
+        height: 25vh;
     }
 }

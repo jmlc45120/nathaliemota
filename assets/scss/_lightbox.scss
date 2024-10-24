@@ -18,7 +18,7 @@
 
 .lightbox-content {
     position: relative;
-    max-width: 90%;
+    // max-width: 90%;
     max-height: 90%;
     overflow-y: scroll;
     -ms-overflow-style: none;  /* Masquer la barre de scroll dans IE et Edge */
@@ -83,25 +83,19 @@
     }
 }
 .lightbox-info {
-    position: absolute;
-    z-index: 100;
-    bottom: 20px;
-    left: 0;
-    right: 0;
     display: flex;
     justify-content: space-between;
-    padding: 0 20px;
     color: white;
     font-size: 1rem;
+    width:inherit;
+    height:30px;
 }
 .lightbox-reference {
-    width:200px;
-    height:200px;
-    text-align: left;
+    padding: 15px 0 0 20vw;
 }
 
 .lightbox-category {
-    text-align: right;
+    padding: 15px 20vw 0 0;
 }
 /* Désactiver le scroll de l'arrière-plan */
 .no-scroll {

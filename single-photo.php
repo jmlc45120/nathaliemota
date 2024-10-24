@@ -45,16 +45,7 @@
                 <!-- Image mise en avant de la photo -->
                 <div class="thumbnail-photo">
                     <?php if (has_post_thumbnail()) {
-                        // Récupérer la référence et la catégorie
-                        $reference = esc_html($reference);
-                        $category_name = esc_html($category_name);
-                        
-                        // Ajouter les attributs data-* dans l'image
-                        echo '<img class="icon-fullscreen" 
-                                src="' . get_the_post_thumbnail_url(get_the_ID(), 'full-size') . '" 
-                                alt="' . get_the_title() . '" 
-                                data-reference="' . $reference . '" 
-                                data-category="' . $category_name . '">';
+                        echo '<img src="' . get_the_post_thumbnail_url(get_the_ID(), 'full-size') . '" alt="' . get_the_title() . '" >';
                     } ?>
                 </div>
             </div>

@@ -31,42 +31,46 @@
                 echo '<img src="' . esc_url($random_image_url) . '" alt="Hero Image">';
             }
         ?>
-        <h1 class="hero-title">PHOTOGRAPHE EVENT</h1>
+        <div class="hero-title">
+            <span class="photograph">PHOTOGRAPH</span> <span class="event">EVENT</span>
+        </div>
     </div>
 </section>
 
 <!-- Section Filtres et Tri -->
 <section class="filters-section">
     <div class="filters">
-        <select id="category-filter">
-            <option value="">CATÉGORIES</option>
-            <?php
-            $categories = get_terms(array(
-                'taxonomy' => 'categorie-photo',
-                'hide_empty' => false,
-            ));
-            foreach ($categories as $category) {
-                echo '<option value="' . esc_attr($category->slug) . '">' . esc_html($category->name) . '</option>';
-            }
-            ?>
-        </select>
-        <select id="format-filter">
-            <option value="">FORMATS</option>
-            <?php
-            $formats = get_terms(array(
-                'taxonomy' => 'format-photo',
-                'hide_empty' => false,
-            ));
-            foreach ($formats as $format) {
-                echo '<option value="' . esc_attr($format->slug) . '">' . esc_html($format->name) . '</option>';
-            }
-            ?>
-        </select>
-        <select id="sort-filter">
-            <option value="">TRIER PAR DATE</option>
-            <option value="date_desc">Plus récente</option>
-            <option value="date_asc">Plus ancienne</option>
-        </select>
+    <select id="category-filter">
+    <option value="" class="hidden-option" selected>CATÉGORIES</option>
+    <?php
+    $categories = get_terms(array(
+        'taxonomy' => 'categorie-photo',
+        'hide_empty' => false,
+    ));
+    foreach ($categories as $category) {
+        echo '<option value="' . esc_attr($category->slug) . '">' . esc_html($category->name) . '</option>';
+    }
+    ?>
+</select>
+
+<select id="format-filter">
+    <option value="" class="hidden-option" selected>FORMATS</option>
+    <?php
+    $formats = get_terms(array(
+        'taxonomy' => 'format-photo',
+        'hide_empty' => false,
+    ));
+    foreach ($formats as $format) {
+        echo '<option value="' . esc_attr($format->slug) . '">' . esc_html($format->name) . '</option>';
+    }
+    ?>
+</select>
+
+<select id="sort-filter">
+    <option value="" class="hidden-option" selected>TRIER PAR DATE</option>
+    <option value="date_desc">Plus récente</option>
+    <option value="date_asc">Plus ancienne</option>
+</select>
     </div>
 </section>
 

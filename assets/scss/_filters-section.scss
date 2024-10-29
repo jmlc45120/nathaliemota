@@ -1,0 +1,113 @@
+// -----------------------------------------------------------------------
+// -------------------------- STYLES FILTER SECTION ----------------------
+// -----------------------------------------------------------------------
+
+.filters-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 80px 0 20px 0;
+}
+
+.filters1 {
+    display: flex;
+    gap:40px;
+    justify-content: left;
+    align-items: center;
+    width: 574px;
+    margin: 0;
+    padding: 0;
+}
+
+.filters2 {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    width: 574px;
+    margin: 0;
+    padding: 0;
+}
+
+.custom-select {
+    position: relative;
+    display: inline-block;
+    width: 260px;
+    height: 42px;
+    margin: 0;
+}
+.custom-select:hover .select-items div[data-value=""] {
+    display: block; /* Affiche l'option par défaut lors du survol */
+    opacity: 0; /* Rendre le texte invisible */
+}
+.custom-select:hover .select-items div[data-value=""]:hover {
+    opacity: 1; /* Affiche le texte sur le survol de l'option */
+    background-color: $color-tertiary; /* Change le fond pour une meilleure visibilité */
+}
+.select-selected {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f1f1f1;
+    padding: 10px;
+    border:#B8BBC2 1px solid;
+    border-radius: 8px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.select-selected:after {
+    content: "^";
+    font-size: 1.2em;
+    display: inline-block;
+    transform: rotate(0deg);
+    color: #313144;
+
+}
+
+.select-selected.select-arrow-active:after {
+    transform: rotate(180deg); /* Chevron vers le bas */
+
+}
+
+.select-items {
+    display: block;
+    border: 2px solid red;
+    position: absolute;
+    background-color: #fff !important;
+    border: 1px solid #ccc;
+    border-top: none;
+    z-index: 2000 !important;
+    width: 100%;
+}
+
+// Option en survol
+.select-items div {
+    padding: 10px;
+    cursor: pointer;
+    user-select: none;
+    background-color: #fff;
+}
+
+.select-items div:hover {
+    background-color: $color-tertiary;
+}
+// Option cliquée (active)
+.select-items div:active {
+    background-color: $color-secondary;
+}
+
+// Option actuellement sélectionnée
+.select-items div.selected {
+    background-color: $color-primary;
+    color: #fff; // Facultatif : couleur du texte pour l'option sélectionnée
+}
+
+// Assurez-vous que l'option par défaut (case vide) reste blanche
+.select-items div[data-value=""] {
+    display:none;
+    background-color: #fff;
+}
+.select-hide {
+    display: none;
+}

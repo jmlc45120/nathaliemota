@@ -6,6 +6,8 @@
 @import 'typography';
 // imports LIGHTBOX ---------------------------------
 @import 'lightbox';
+// imports FILTERS SECTION ---------------------------------
+@import 'filters-section';
 
 *,
 *::before,
@@ -195,49 +197,7 @@ article{
         transform: translateY(0);
     }
 }
-// -----------------------------------------------------------------------
-// -------------------------- STYLES FILTER SECTION ----------------------
-// -----------------------------------------------------------------------
 
-.filters-section {
-    display: flex;
-    justify-content:center;
-    align-items: center;
-    margin: 80px 0 20px 0;
-}
-.filters{
-    display: flex;
-    justify-content: left;
-    align-items: center;
-    width: 1148px;
-    margin: 0;
-    padding: 0;
-}
-#category-filter, #format-filter, #sort-filter{
-    width:260px;
-    height:42px;
-    padding: 11px 18px 11px 18px;
-    border-radius: 8px;
-}
-#format-filter{
-    margin: 0 30% 0 3%;
-}
-.hidden-option {
-    color: transparent!important;  /* Rend le texte transparent */
-}
-.hidden-option::before {
-    content: "\00a0";  /* Ajoute un espace insécable pour éviter que la case soit complètement vide */
-}
-#category-filter .hidden-option {
-    color: transparent;
-}
-#category-filter .hidden-option::before {
-    content: "\00a0";
-}
-select:focus .hidden-option,
-select:active .hidden-option {
-    color: transparent !important; /* Assurez-vous que même à l'ouverture, c'est masqué */
-}
 
 // ------------------------------------------------------------------------
 // -------------------------- STYLES DE LA MODALE -------------------------
@@ -368,6 +328,18 @@ select:active .hidden-option {
         padding:0px;
     }
 }
+.related-photo-item {
+    position: relative;
+    overflow: hidden;
+}
+
+.related-photo-item img {
+    transition: transform 2.5s ease-in-out;
+}
+
+.related-photo-item:hover img {
+    transform: scale(1.03); /* Zoom à 110% */
+}
 
 // Bouton "CHARGER PLUS"
 
@@ -429,8 +401,8 @@ select:active .hidden-option {
 .photo-overlay {
     position: absolute;
     display: flex;
-    justify-content: center;
-    align-items: end;
+    justify-content: end;
+    align-items: start;
     top: 0;
     left: 0;
     width: 100%;
@@ -452,18 +424,40 @@ select:active .hidden-option {
 }
 .icon-eye,
 .icon-fullscreen {
+    position:absolute;
     color: white;
     font-size: 34px;
     cursor: pointer;
 }
+.icon-eye {
+    top:5%;
+    right:15%;
+}
+.icon-fullscreen {
+    top:5%;
+    right:5%;
+}
 .photo-info-ovl{
-    position:relative;
-    display: flex;
-    justify-content: start;
-    align-items: start;
-    padding: 0 120px 120px 0;
-    gap: 10px;
+    width:100%;
+    height:100%;
+
+}
+.photo-title-ovl {
+    position: absolute;
+    top: 20px;
+    left: 20px;
     color: white;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.photo-category-ovl {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    color: white;
+    font-size: 14px;
+    font-style: italic;
 }
 
 // ------------------------------------------------------------------------
@@ -530,7 +524,7 @@ select:active .hidden-option {
     margin:0;
     padding:0px;
     
-    border-bottom: 1px solid #000; // Ajoute un trait plein de 1 pixel en bas
+    border-bottom: 1px solid #000;
 }
 .single-cta{
     margin:0 ;

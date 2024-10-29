@@ -4,10 +4,10 @@
             <?php the_post_thumbnail('large'); ?>
         <?php endif; ?>
         <div class="photo-overlay">
-            <!-- Icône de l'œil pour afficher les informations -->
+            <!-- Icône de l'oeil pour afficher les informations -->
             <span class="icon-eye"><i class="fas fa-eye"></i></span>
 
-            <!-- Informations qui apparaîtront au survol de l'icône œil -->
+            <!-- Informations qui apparaîtront au survol de l'icône oeil -->
             <div class="photo-info-ovl" style="display: none;">
                 <span class="photo-title-ovl">
                     <?php the_title(); ?>

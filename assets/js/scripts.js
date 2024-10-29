@@ -1,135 +1,219 @@
 document.addEventListener('DOMContentLoaded', function() {
-    var modal = document.getElementById('contactModal');
-    var modalContent = document.querySelector('.contact-modal-content');
-    var thumbnail = document.getElementById('thumbnail');
-    var prevPhotoLink = document.querySelector('.prev-photo a');
-    var nextPhotoLink = document.querySelector('.next-photo a');
-    var eyeIcons = document.querySelectorAll('.icon-eye');
+    // Variables
+    const modal = document.getElementById('contactModal');
+    const modalContent = document.querySelector('.contact-modal-content');
+    const thumbnail = document.getElementById('thumbnail');
+    const prevPhotoLink = document.querySelector('.prev-photo a');
+    const nextPhotoLink = document.querySelector('.next-photo a');
+    const eyeIcons = document.querySelectorAll('.icon-eye');
     const heroImage = document.querySelector('.hero-image');
     const heroTitle = document.querySelector('.hero-title');
+    const loadMoreButton = document.getElementById('load-more');
+    const loadMoreContainer = document.querySelector('.photo-archive');
+    const categoryFilter = document.getElementById('category-filter');
+    const formatFilter = document.getElementById('format-filter');
+    const sortFilter = document.getElementById('sort-filter');
+    let page = 2;
+    let isLoading = false;
 
-    // Déclenchement des animations pour le HERO
-    heroImage.style.opacity = '1';
-    heroTitle.style.opacity = '1';
+    // Variables globales pour conserver les filtres sélectionnés
+    let selectedCategory = '';
+    let selectedFormat = '';
+    let selectedSort = '';
 
-    eyeIcons.forEach(function(icon) {
-        // Survol de l'icône oeil
-        icon.addEventListener('mouseover', function() {
-            var photoInfo = this.parentElement.querySelector('.photo-info-ovl');
-            if (photoInfo) {
-                photoInfo.style.display = 'block'; // Affiche les informations
-            }
-            else{
-                console.log('No photo info');
-            }});
+    // Initialisation des animations pour le HERO
+    if (heroImage) heroImage.style.opacity = '1';
+    if (heroTitle) heroTitle.style.opacity = '1';
 
+    // Fonction pour initialiser les événements pour les icônes et la modale
+    function initializePhotoEvents() {
+        const eyeIcons = document.querySelectorAll('.icon-eye');
 
-        // Quand on arrête de survoler l'icône
-        icon.addEventListener('mouseout', function() {
-            var photoInfo = this.parentElement.querySelector('.photo-info-ovl');
-            if (photoInfo) {
-                photoInfo.style.display = 'none'; // Cache les informations
-            }
-        });
-    });
-
-
-    // Vérifiez que modal existe avant d'ajouter des écouteurs d'événements
-    if (modal) {
-        // Ouvrir la modale
-        document.querySelectorAll('.open-contact-modal').forEach(function(button) {
-            button.addEventListener('click', function() {
-                modal.classList.add('open');  // Ajoute une classe pour ouvrir la modale
+        // Gestion du survol de l'icône oeil pour afficher les informations de la photo
+        eyeIcons.forEach(function(icon) {
+            icon.addEventListener('mouseover', function() {
+                const photoInfo = this.parentElement.querySelector('.photo-info-ovl');
+                if (photoInfo) photoInfo.style.display = 'block';
+            });
+            icon.addEventListener('mouseout', function() {
+                const photoInfo = this.parentElement.querySelector('.photo-info-ovl');
+                if (photoInfo) photoInfo.style.display = 'none';
             });
         });
 
-        // Change la valeur du champ avec jQuery
-        jQuery(document).ready(function($) {
-            if (typeof acfData !== 'undefined' && acfData.reference) {
-                $('input[name="your-subject"]').val(acfData.reference);
-            }
-        });
+        // Gestion de la modale de contact
+        if (modal) {
+            document.querySelectorAll('.open-contact-modal').forEach(function(button) {
+                button.addEventListener('click', () => modal.classList.add('open'));
+            });
 
-        // Ferme la modale en cliquant en dehors du contenu
-        window.addEventListener('click', function(event) {
-            if (event.target === modal && !modalContent.contains(event.target)) {
-                modal.classList.remove('open');
-            }
-        });
+            // Fermeture de la modale en cliquant en dehors du contenu
+            window.addEventListener('click', function(event) {
+                if (event.target === modal && !modalContent.contains(event.target)) {
+                    modal.classList.remove('open');
+                }
+            });
+        }
     }
 
     // Fonction pour changer l'image de la miniature
     function changeThumbnail(link, thumbnail) {
-        link.addEventListener('mouseover', function() {
-            thumbnail.src = link.getAttribute('data-thumbnail');
-        });
-        link.addEventListener('mouseout', function() {
-            thumbnail.src = thumbnail.getAttribute('data-current-thumbnail');
-        });
+        link.addEventListener('mouseover', () => thumbnail.src = link.getAttribute('data-thumbnail'));
+        link.addEventListener('mouseout', () => thumbnail.src = thumbnail.getAttribute('data-current-thumbnail'));
     }
 
-    // Changer l'image de la miniature au survol des flèches
     if (prevPhotoLink) changeThumbnail(prevPhotoLink, thumbnail);
     if (nextPhotoLink) changeThumbnail(nextPhotoLink, thumbnail);
 
-    // Pagination infinie
-    var page = 2;
-    var loadMoreButton = document.getElementById('load-more');
-    var loadMoreContainer = document.querySelector('.photo-archive');
-
-    if (loadMoreButton) {
-        loadMoreButton.addEventListener('click', function() {
-            var xhr = new XMLHttpRequest();
-            xhr.open('GET', '/wp-admin/admin-ajax.php?action=load_more_photos&page=' + page, true);
-            xhr.onload = function() {
-                if (xhr.status === 200) {
-                    var response = xhr.responseText;
-                    var parser = new DOMParser();
-                    var doc = parser.parseFromString(response, 'text/html');
-                    var newPhotos = doc.querySelector('.photo-grid');
-                    if (newPhotos) {
-                        loadMoreContainer.querySelector('.photo-grid').insertAdjacentHTML('beforeend', newPhotos.innerHTML);
-                        page++;
-                    }
-                }
-            };
-            xhr.onerror = function() {
-                console.error('Ajax request error');
-            };
-            xhr.send();
-        });
-    }
-
-    // Filtres et tri
-    var categoryFilter = document.getElementById('category-filter');
-    var formatFilter = document.getElementById('format-filter');
-    var sortFilter = document.getElementById('sort-filter');
-
-    function applyFilters() {
-        var category = categoryFilter ? categoryFilter.value : '';
-        var format = formatFilter ? formatFilter.value : '';
-        var sort = sortFilter ? sortFilter.value : '';
-
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', '/wp-admin/admin-ajax.php?action=filter_photos&category=' + category + '&format=' + format + '&sort=' + sort, true);
+    // Chargement des photos avec bouton "Charger plus"
+    function loadMorePhotos() {
+        if (isLoading) return;
+        isLoading = true;
+        loadMoreButton.disabled = true;
+        loadMoreButton.textContent = 'Chargement...';
+    
+        console.log('Chargement de la page:', page);
+        console.log('Catégorie sélectionnée:', selectedCategory);
+        console.log('Format sélectionné:', selectedFormat);
+        console.log('Tri sélectionné:', selectedSort);
+    
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', `/wp-admin/admin-ajax.php?action=load_more_photos&page=${page}&category=${selectedCategory}&format=${selectedFormat}&sort=${selectedSort}`, true);
         xhr.onload = function() {
             if (xhr.status === 200) {
-                var response = xhr.responseText;
-                var parser = new DOMParser();
-                var doc = parser.parseFromString(response, 'text/html');
-                var newPhotos = doc.querySelector('.photo-grid');
+                const response = xhr.responseText;
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(response, 'text/html');
+                const newPhotos = doc.querySelector('.photo-grid');
+    
                 if (newPhotos) {
+                    loadMoreContainer.querySelector('.photo-grid').insertAdjacentHTML('beforeend', newPhotos.innerHTML);
+                    page++;
+                    initializePhotoEvents();
+                }
+                loadMoreButton.textContent = 'Charger plus';
+            }
+            isLoading = false;
+            loadMoreButton.disabled = false;
+        };
+        xhr.onerror = function() {
+            console.error('Erreur lors du chargement des photos');
+            loadMoreButton.textContent = 'Charger plus';
+            isLoading = false;
+            loadMoreButton.disabled = false;
+        };
+        xhr.send();
+    }
+    if (loadMoreButton) loadMoreButton.addEventListener('click', loadMorePhotos);
+
+    // Application des filtres et tri des photos
+    function applyFilters() {
+        // Réinitialiser la page lors de l'application d'un filtre ou du tri
+        page = 2;
+    
+        // Mettre à jour les variables globales des filtres sélectionnés
+        selectedCategory = categoryFilter ? categoryFilter.querySelector('.select-selected').dataset.value || '' : '';
+        selectedFormat = formatFilter ? formatFilter.querySelector('.select-selected').dataset.value || '' : '';
+        selectedSort = sortFilter ? sortFilter.querySelector('.select-selected').dataset.value || '' : '';
+    
+        console.log('Appliquer filtres avec - Catégorie:', selectedCategory, ', Format:', selectedFormat, ', Tri:', selectedSort);
+    
+        // Effectuer la requête AJAX avec les filtres sélectionnés
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', `/wp-admin/admin-ajax.php?action=filter_photos&category=${selectedCategory}&format=${selectedFormat}&sort=${selectedSort}`, true);
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                const response = xhr.responseText;
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(response, 'text/html');
+                const newPhotos = doc.querySelector('.photo-grid');
+    
+                // Vérifier si aucun résultat n'est trouvé
+                if (newPhotos && newPhotos.innerHTML.trim() !== '') {
                     loadMoreContainer.querySelector('.photo-grid').innerHTML = newPhotos.innerHTML;
+                    initializePhotoEvents(); // Réapplique les événements aux nouveaux éléments
+                } else {
+                    // Afficher un message s'il n'y a aucun résultat
+                    loadMoreContainer.querySelector('.photo-grid').innerHTML = '<p class="no-results">Aucun résultat ne correspond aux filtres sélectionnés.</p>';
                 }
             }
         };
         xhr.onerror = function() {
-            console.error('Ajax request error');
+            console.error('Erreur de requête AJAX pour les filtres');
         };
         xhr.send();
     }
 
-    if (categoryFilter) categoryFilter.addEventListener('change', applyFilters);
-    if (formatFilter) formatFilter.addEventListener('change', applyFilters);
-    if (sortFilter) sortFilter.addEventListener('change', applyFilters);
+// Initialisation des sélecteurs personnalisés
+function initializeCustomSelects() {
+    const customSelects = document.querySelectorAll('.custom-select');
+    customSelects.forEach(function(customSelect) {
+        const selected = customSelect.querySelector('.select-selected');
+        const items = customSelect.querySelector('.select-items');
+
+        // Événement pour ouvrir/fermer le menu lorsque l'utilisateur clique sur l'élément sélectionné
+        selected.addEventListener('click', function(e) {
+            customSelects.forEach(function(otherCustomSelect) {
+                if (otherCustomSelect !== customSelect) {
+                    otherCustomSelect.querySelector('.select-items').classList.add('select-hide');
+                    otherCustomSelect.querySelector('.select-selected').classList.remove('select-arrow-active');
+                }
+            });
+            items.classList.toggle('select-hide');
+            selected.classList.toggle('select-arrow-active');
+            e.stopPropagation();
+        });
+
+        // Gérer la sélection d'une option et appeler `applyFilters()` pour chaque sélection
+        items.querySelectorAll('div').forEach(function(item) {
+            item.addEventListener('click', function() {
+                // Si l'utilisateur sélectionne la première option vide
+                if (item.dataset.value === '') {
+                    selected.textContent = selected.dataset.defaultText; // Rétablit le titre par défaut
+                    selected.dataset.value = ''; // Réinitialise la valeur
+                } else {
+                    selected.textContent = item.textContent; // Met à jour le texte du select
+                    selected.dataset.value = item.dataset.value;
+                }
+                // Retirer la classe .selected de toutes les options et l'ajouter à l'option choisie
+                items.querySelectorAll('div').forEach(function(option) {
+                option.classList.remove('selected');
+                });
+                if (item.dataset.value !== '') {
+                item.classList.add('selected');
+                }
+
+                items.classList.add('select-hide');
+                selected.classList.remove('select-arrow-active');
+                applyFilters();
+            });
+        });
+    });
+
+    // Clic en dehors du menu pour fermer tous les menus ouverts
+    document.addEventListener('click', function(e) {
+        customSelects.forEach(function(customSelect) {
+            const items = customSelect.querySelector('.select-items');
+            const selected = customSelect.querySelector('.select-selected');
+            items.classList.add('select-hide');
+            selected.classList.remove('select-arrow-active');
+        });
+    });
+}
+
+// Appel initial des fonctions de sélecteurs personnalisés si les filtres sont présents
+if (categoryFilter) initializeCustomSelects();
+if (formatFilter) initializeCustomSelects();
+if (sortFilter) initializeCustomSelects();
+
+// Initialiser les événements pour les icônes de la page la première fois
+initializePhotoEvents();
+
+// Débogage pour voir l'état des sélecteurs
+document.querySelectorAll('.select-selected').forEach(selected => {
+    selected.addEventListener('click', () => {
+        console.log('Select clicked:', selected);
+        console.log('Items:', selected.nextElementSibling.style.display);
+    });
+});
 });

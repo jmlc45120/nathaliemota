@@ -37,8 +37,8 @@ p {
     font-weight: 500;
     color: black;
 }
-.contact-modal-content p{
-    @include modale-font;
+.contact-modal-content p, .select-selected{
+    @include modale-select-font;
 }
 
 .photo-meta p{ // Défintion des polices pour description dans "single photo"

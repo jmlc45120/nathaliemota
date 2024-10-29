@@ -72,14 +72,48 @@ add_action('init', 'create_photo_post_type');
 
 // Fonction pour charger plus de photos via AJAX
 function load_more_photos() {
-    // Vérification de l'existence du paramètre 'page' et sécurisation
-    $paged = isset($_GET['page']) ? intval($_GET['page']) : 1; // Si 'page' n'est pas défini, on prend la première page par défaut
+    $paged = isset($_GET['page']) ? intval($_GET['page']) : 1; // Numéro de la page
+    $category = isset($_GET['category']) ? sanitize_text_field($_GET['category']) : '';
+    $format = isset($_GET['format']) ? sanitize_text_field($_GET['format']) : '';
+    $sort = isset($_GET['sort']) ? sanitize_text_field($_GET['sort']) : '';
 
     $args = array(
         'post_type' => 'photo',
-        'posts_per_page' => 8, // Limite le nombre de photos à 8
-        'paged' => $paged, // Pagination dynamique
+        'posts_per_page' => 8,
+        'paged' => $paged, // Ajoute le paramètre de pagination
     );
+
+    $tax_query = array('relation' => 'AND');
+
+    if ($category) {
+        $tax_query[] = array(
+            'taxonomy' => 'categorie-photo',
+            'field' => 'slug',
+            'terms' => $category,
+        );
+    }
+
+    if ($format) {
+        $tax_query[] = array(
+            'taxonomy' => 'format-photo',
+            'field' => 'slug',
+            'terms' => $format,
+        );
+    }
+
+    if (!empty($tax_query)) {
+        $args['tax_query'] = $tax_query;
+    }
+
+    if ($sort) {
+        if ($sort === 'date_asc') {
+            $args['orderby'] = 'date';
+            $args['order'] = 'ASC';
+        } elseif ($sort === 'date_desc') {
+            $args['orderby'] = 'date';
+            $args['order'] = 'DESC';
+        }
+    }
 
     $photo_query = new WP_Query($args);
 
@@ -94,7 +128,7 @@ function load_more_photos() {
         echo '<p>Aucune autre photo trouvée.</p>';
     endif;
 
-    wp_die(); // Terminer la requête proprement
+    wp_die(); // Terminer la requête
 }
 add_action('wp_ajax_load_more_photos', 'load_more_photos');
 add_action('wp_ajax_nopriv_load_more_photos', 'load_more_photos');

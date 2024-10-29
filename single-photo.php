@@ -5,6 +5,11 @@
     if (have_posts()) :
         while (have_posts()) : the_post();
             $reference = get_field('reference');
+            ?>
+            <script>
+            var currentPhotoReference = "<?php echo esc_attr($reference); ?>"; // Stocke la référence
+            </script>
+            <?php
             $categories = get_the_terms(get_the_ID(), 'categorie-photo');
             $category_names = !empty($categories) && !is_wp_error($categories) ? wp_list_pluck($categories, 'name') : ['Non spécifié'];
             $category_name = implode(', ', $category_names);
@@ -52,7 +57,7 @@
             <div class="photo-navigation">
                 <div class="single-cta">
                     <p> Cette photo vous intéresse ? </p>
-                    <button class="open-contact-modal">Contact</button>
+                    <button class="open-contact-modal" data-reference="<?php echo esc_attr($reference); ?>">Contact</button>
                 </div>
                 <div class="card-nav">
                     <div class="card-img">

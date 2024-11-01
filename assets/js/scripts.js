@@ -15,6 +15,13 @@ document.addEventListener('DOMContentLoaded', function() {
     let page = 2;
     let isLoading = false;
 
+    const burgerMenu = document.querySelector('.burger-menu');
+    const headerNav = document.querySelector('.header__nav');
+
+    burgerMenu.addEventListener('click', function() {
+        headerNav.classList.toggle('active');
+    });
+
     // Variables globales pour conserver les filtres sélectionnés
     let selectedCategory = '';
     let selectedFormat = '';
@@ -76,6 +83,12 @@ document.addEventListener('DOMContentLoaded', function() {
     if (prevPhotoLink) changeThumbnail(prevPhotoLink, thumbnail);
     if (nextPhotoLink) changeThumbnail(nextPhotoLink, thumbnail);
 
+    // Fonction pour mettre à jour l'état du bouton "Charger plus"
+    function updateLoadMoreButtonState() {
+        loadMoreButton.disabled = false;
+        loadMoreButton.textContent = 'Charger plus';
+    }
+
     // Chargement des photos avec bouton "Charger plus"
     function loadMorePhotos() {
         if (isLoading) return;
@@ -100,6 +113,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     page++; // Incrémente la page
                     // Réinitialiser les événements des icônes après le chargement de nouvelles photos
                     initializeEyeIcons();
+                    updateLoadMoreButtonState(); // Réinitialiser l'état du bouton
                 } else {
                     // Si aucune nouvelle photo, afficher un message ou désactiver le bouton
                     loadMoreButton.textContent = 'Aucune photo supplémentaire à charger.';
@@ -107,15 +121,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             } else {
                 console.error('Erreur lors du chargement des photos', xhr.statusText);
-                loadMoreButton.textContent = 'Erreur de chargement. Réessayer.';
+                loadMoreButton.textContent = 'Erreur de chargement. Réessayez.';
             }
             isLoading = false;
-            loadMoreButton.disabled = false;
         };
     
         xhr.onerror = function() {
             console.error('Erreur lors du chargement des photos');
-            loadMoreButton.textContent = 'Erreur de chargement. Réessayer.';
+            loadMoreButton.textContent = 'Erreur de chargement. Réessayez.';
             isLoading = false;
             loadMoreButton.disabled = false;
         };
@@ -155,9 +168,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     loadMoreContainer.querySelector('.photo-grid').innerHTML = newPhotos.innerHTML;
                     // Réinitialiser les événements des icônes après le chargement de nouvelles photos
                     initializeEyeIcons();
+                    updateLoadMoreButtonState(); // Réinitialiser l'état du bouton
                 } else {
                     // Afficher un message s'il n'y a aucun résultat
                     loadMoreContainer.querySelector('.photo-grid').innerHTML = '<p class="no-results">Aucun résultat ne correspond aux filtres sélectionnés.</p>';
+                    loadMoreButton.textContent = 'Aucune photo supplémentaire à charger.';
+                    loadMoreButton.disabled = true;
                 }
             }
         };

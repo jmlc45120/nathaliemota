@@ -3,10 +3,12 @@
 // -----------------------------------------------------------------------
 
 .filters-section {
+    max-width: 1148px;
+    width:80%;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    margin: 80px 0 20px 0;
+    margin: 80px 20px 40px 20px;
 }
 
 .filters1 {
@@ -14,7 +16,8 @@
     gap:40px;
     justify-content: left;
     align-items: center;
-    width: 574px;
+    width:49%;
+    max-width: 574px;
     margin: 0;
     padding: 0;
 }
@@ -23,7 +26,8 @@
     display: flex;
     justify-content: right;
     align-items: center;
-    width: 574px;
+    width:49%;
+    max-width: 574px;
     margin: 0;
     padding: 0;
 }
@@ -31,11 +35,11 @@
 .custom-select {
     position: relative;
     display: inline-block;
-    width: 260px;
+    width:260px;
     height: 42px;
     margin: 0;
-    
 }
+
 .custom-select:hover .select-items div[data-value=""] {
     display: block; /* Affiche l'option par défaut lors du survol */
     opacity: 0; /* Rendre le texte invisible */
@@ -55,6 +59,9 @@
     border-radius: 8px;
     cursor: pointer;
     user-select: none;
+    &.non-null-value {
+        border-color: #215AFF; 
+    }
 }
 
 .select-selected:after {

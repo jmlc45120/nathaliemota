@@ -21,8 +21,8 @@
                         <?php
                         $title = get_the_title();
                         $words = explode(' ', $title);
-                        if (count($words) > 1) {
-                            echo $words[0] . '<br>' . implode(' ', array_slice($words, 1));
+                        if (count($words) > 2) {
+                            echo implode(' ', array_slice($words, 0, 2)) . '<br>' . implode(' ', array_slice($words, 2));
                         } else {
                             echo $title;
                         }

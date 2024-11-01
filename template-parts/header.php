@@ -11,23 +11,26 @@
     <div class="container">
         <header class="header__container">
             <div class="logo">
-                <a href="<?php echo home_url(); ?>">
-                    <?php
-                    if (function_exists('the_custom_logo') && has_custom_logo()) {
-                        the_custom_logo();
-                    } else {
-                        echo '<img src="' . get_template_directory_uri() . '/assets/images/logo.png" alt="Logo du site">';
-                    }
-                    ?>
+                <a href="<?php echo esc_url(home_url('/')); ?>">
+                    <?php if (function_exists('the_custom_logo') && has_custom_logo()): ?>
+                        <?php the_custom_logo(); ?>
+                    <?php else: ?>
+                        <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/logo.png'); ?>" alt="<?php esc_attr_e('Site Logo', 'textdomain'); ?>" loading="lazy">
+                    <?php endif; ?>
                 </a>
             </div>
             <nav class="header__nav">
                 <?php
-                wp_nav_menu(array(
+                wp_nav_menu([
                     'theme_location' => 'main-menu',
                     'container'      => false,
                     'menu_class'     => 'navigation'
-                ));
+                ]);
                 ?>
             </nav>
+            <div class="burger-menu" aria-label="<?php esc_attr_e('Toggle navigation', 'textdomain'); ?>" role="button" tabindex="0">
+                <span class="burger-bar"></span>
+                <span class="burger-bar"></span>
+                <span class="burger-bar"></span>
+            </div>
         </header>

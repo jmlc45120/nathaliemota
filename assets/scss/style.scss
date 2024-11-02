@@ -77,8 +77,6 @@ main {
     column-gap:40px;
 }
 article{
-    // display: flex;
-    // flex-direction: column;
     padding:0;
     max-width:1148px;
     width:100%;
@@ -241,7 +239,7 @@ article{
 .contact-modal {
     display: none;
     position: fixed;
-    z-index: 1;
+    z-index: 2;
     left: 0;
     top: 0;
     width: 100%;
@@ -374,8 +372,8 @@ article{
     max-width: 1148px;
     width:100%;
     grid-template-columns: repeat(2, 1fr); // Deux colonnes
-    column-gap: 1.7%; // Espace entre les éléments
-    row-gap:1.0%;
+    column-gap: 20px; // Espace entre les éléments
+    row-gap:20px;
     padding:0;
 
 
@@ -472,7 +470,7 @@ article{
 // ------------------------------------------------------------------------
 .photo-overlay {
     position: absolute;
-    // display: flex;
+    display: flex;
     justify-content: end;
     align-items: start;
     top: 0;
@@ -616,6 +614,7 @@ article{
     margin:0 ;
     padding: 0;
 }
+// bouton Contact ---------------------------
 button.open-contact-modal{
     display: flex;
     justify-content: center;
@@ -632,6 +631,7 @@ button.open-contact-modal{
         cursor:pointer;
     }
 }
+// Affichage miniature --------------------------
 .long-arrow {
     display: inline-block;
     font-size: 25px;
@@ -673,6 +673,10 @@ button.open-contact-modal{
 
     margin-right: 0; // Supprimer l'espace à droite pour la flèche droite
 }
+
+// ------------------------------------------------------------------------
+// ---------------------------MEDIA QUERIES-------------------------------
+//------------------------------------------------------------------------
 
 @media (max-width: 600px) {
     #menu-main-menu.navigation{
@@ -760,7 +764,7 @@ button.open-contact-modal{
         }
     }
 }
-
+// -------------------------------------------
 @media (max-width: 450px) {
     .icon-fullscreen {
         display: none; /* Masque l'icône plein écran sur les appareils mobiles */
@@ -881,11 +885,6 @@ button.open-contact-modal{
             height:80%;
             max-width: 286px;
             max-height: 583px;
-            // padding: 0px;
-            // border: 5px solid black;
-            // border-radius: 2px;
-            // box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
-            // overflow:hidden;
         }
     }
     

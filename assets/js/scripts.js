@@ -40,6 +40,14 @@ document.addEventListener('DOMContentLoaded', function() {
     let selectedFormat = '';
     let selectedSort = '';
 
+    // Fonction pour afficher et masquer le loader
+    function showLoader() {
+        loader.style.display = 'block';
+    }
+    function hideLoader() {
+        loader.style.display = 'none';
+    }
+
     // Gestion du survol de l'icône oeil pour afficher les informations de la photo
     function initializeEyeIcons() {
         const eyeIcons = document.querySelectorAll('.icon-eye');
@@ -93,7 +101,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     const modalReference = document.querySelector('input[name="your-subject"]');
                     if (modalReference) {
                         modalReference.value = reference;
-                        console.log('Référence de photo inscrite:', reference);
                     }
                     modal.classList.add('open');
                 });
@@ -125,6 +132,12 @@ document.addEventListener('DOMContentLoaded', function() {
         loadMoreButton.disabled = false;
         loadMoreButton.textContent = 'Charger plus';
     }
+    function resetLightboxListeners() {
+        // Vérifie que la fonction initializeFullscreenIcons est disponible
+        if (typeof initializeFullscreenIcons === 'function') {
+            initializeFullscreenIcons(); // Réinitialiser les événements sur les icônes plein écran
+        }
+    }
 
     // Chargement des photos avec bouton "Charger plus"
     function loadMorePhotos() {
@@ -132,12 +145,14 @@ document.addEventListener('DOMContentLoaded', function() {
         isLoading = true;
         loadMoreButton.disabled = true;
         loadMoreButton.textContent = 'Chargement...';
+        showLoader();
     
         // Vérifie si les filtres sont appliqués et ajuste la page en conséquence
         const xhr = new XMLHttpRequest();
         xhr.open('GET', `/wp-admin/admin-ajax.php?action=load_more_photos&page=${page}&category=${selectedCategory}&format=${selectedFormat}&sort=${selectedSort}`, true);
     
         xhr.onload = function() {
+            hideLoader();
             if (xhr.status === 200) {
                 const response = xhr.responseText;
                 const parser = new DOMParser();
@@ -150,6 +165,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     page++; // Incrémente la page
                     // Réinitialiser les événements des icônes après le chargement de nouvelles photos
                     initializeEyeIcons();
+                    resetLightboxListeners();
+                    collectImages();
                     updateLoadMoreButtonState(); // Réinitialiser l'état du bouton
                 } else {
                     // Si aucune nouvelle photo, afficher un message ou désactiver le bouton
@@ -157,14 +174,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     loadMoreButton.disabled = true;
                 }
             } else {
-                console.error('Erreur lors du chargement des photos', xhr.statusText);
                 loadMoreButton.textContent = 'Erreur de chargement. Réessayez.';
             }
             isLoading = false;
         };
     
         xhr.onerror = function() {
-            console.error('Erreur lors du chargement des photos');
             loadMoreButton.textContent = 'Erreur de chargement. Réessayez.';
             isLoading = false;
             loadMoreButton.disabled = false;
@@ -182,18 +197,18 @@ document.addEventListener('DOMContentLoaded', function() {
     function applyFilters() {
         // Réinitialiser la page lors de l'application d'un filtre ou du tri
         page = 2;
+        showLoader();
     
         // Mettre à jour les variables globales des filtres sélectionnés
         selectedCategory = categoryFilter ? categoryFilter.querySelector('.select-selected').dataset.value || '' : '';
         selectedFormat = formatFilter ? formatFilter.querySelector('.select-selected').dataset.value || '' : '';
         selectedSort = sortFilter ? sortFilter.querySelector('.select-selected').dataset.value || '' : '';
     
-        console.log('Appliquer filtres avec - Catégorie:', selectedCategory, ', Format:', selectedFormat, ', Tri:', selectedSort);
-    
         // Effectuer la requête AJAX avec les filtres sélectionnés
         const xhr = new XMLHttpRequest();
         xhr.open('GET', `/wp-admin/admin-ajax.php?action=filter_photos&category=${selectedCategory}&format=${selectedFormat}&sort=${selectedSort}`, true);
         xhr.onload = function() {
+            hideLoader();
             if (xhr.status === 200) {
                 const response = xhr.responseText;
                 const parser = new DOMParser();
@@ -205,6 +220,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     loadMoreContainer.querySelector('.photo-grid').innerHTML = newPhotos.innerHTML;
                     // Réinitialiser les événements des icônes après le chargement de nouvelles photos
                     initializeEyeIcons();
+                    resetLightboxListeners();
+                    collectImages();
                     updateLoadMoreButtonState(); // Réinitialiser l'état du bouton
                 } else {
                     // Afficher un message s'il n'y a aucun résultat

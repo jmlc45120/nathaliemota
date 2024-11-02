@@ -19,7 +19,7 @@
     height: 21px;
     cursor: pointer;
     position: relative;
-    z-index: 1001; // Assurez-vous que le menu burger est au-dessus du menu
+    z-index: 2; // Assurez-vous que le menu burger est au-dessus du menu
 }
 
 .burger-bar {
@@ -59,7 +59,7 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                z-index: 1000;
+                z-index: 2;
             }
         }
     }

@@ -11,5 +11,6 @@
     <?php wp_footer(); ?>
 </footer>
 </div>
+<div id="loader" class="loader" style="display: none;"></div>
 </body>
 </html>

@@ -9,7 +9,7 @@ function theme_nathaliemota_enqueue_styles()
     wp_enqueue_style('main-style', get_template_directory_uri() . '/assets/css/style.css');
 
     // Chargement du script JavaScript pour la modale
-    wp_enqueue_script('main-scripts', get_template_directory_uri() . '/assets/js/scripts.js', array('jquery'), null, true);
+    wp_enqueue_script('main-scripts', get_template_directory_uri() . '/assets/js/scripts.js', array('jquery', 'custom-lightbox'), null, true);
 
     // Récupérer la valeur ACF "Référence" de la photo pour affichage dans la modale
     $reference_value = get_field('reference');

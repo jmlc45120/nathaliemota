@@ -6,9 +6,16 @@
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.8);
-    z-index: 5;
     justify-content: center;
     align-items: center;
+}
+.lightbox-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2; /* Assurez-vous que l'overlay est au-dessus des autres éléments */
 }
 
 #custom-lightbox.open {
@@ -17,10 +24,12 @@
 }
 
 .lightbox-content {
-    position: relative;
+    // position: relative;
     max-width: 80%;
-    max-height: 90%;
-    overflow-y: scroll;
+    max-height: 90vh;
+    z-index: 3;
+    overflow-y: auto;
+    overflow-x: hidden;
     -ms-overflow-style: none;  /* Masquer la barre de scroll dans IE et Edge */
     scrollbar-width: none;  /* Masquer la barre de scroll dans Firefox */
 }
@@ -30,9 +39,10 @@
 }
 
 .lightbox-img {
-    max-width: 100%;
+    width: 100%;
     height: auto; /* Assure que l'image conserve son ratio en largeur */
-    display: block;
+    max-height: none;
+    // display: block;
     cursor: grab; /* Indique que l'image peut être glissée */
 }
 
@@ -42,31 +52,35 @@
 
 .lightbox-close {
     position: fixed;
-    top: 50px;
+    top: 30px;
     right: 6vw;
     background: none;
     border: none;
     color: white;
     font-size: 3rem;
+    font-weight:100;
+    z-index: 3;
     cursor: pointer;
+    &:hover{
+        font-weight:bolder;
+    }
 }
 
 .lightbox-prev, .lightbox-next {
     position: fixed;
     top: 50%;
+    width:120px;
+    height:100px;
     border: none;
     color: white;
-    font-size: 3rem;
+    z-index: 3;
+    filter: invert(1) brightness(2);
     cursor: pointer;
-    // transform: translateY(-50%);
 }
 
 .lightbox-prev {
     left: 2vw;
-    width:120px;
-    height:100px;
     background: url('#{$base-url}/arrow-left.png') center center no-repeat;
-    filter: invert(1) brightness(2);
     &:hover{
         background: url('#{$base-url}/arrow-left-hover.png') center center no-repeat;
     }
@@ -74,10 +88,7 @@
 
 .lightbox-next {
     right: 2vw;
-    width:120px;
-    height:100px;
     background: url('#{$base-url}/arrow-right.png') center center no-repeat;
-    filter: invert(1) brightness(2);
     &:hover{
         background: url('#{$base-url}/arrow-right-hover.png') center center no-repeat;
     }

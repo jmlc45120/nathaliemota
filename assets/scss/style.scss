@@ -121,7 +121,6 @@ article{
 
 // Application de la classe et des marges spécifiques
 .header__container .header__nav a,
-.footer__container,
 .site-info a {
     @extend .link-style;
 }
@@ -257,7 +256,7 @@ article{
     }
     &-content {
         background-color: #fff;
-        width: 100%;
+        width: 70%;
         height:80%;
         max-width: 597px;
         max-height: 769px;
@@ -266,6 +265,9 @@ article{
         border-radius: 2px;
         box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
         overflow:hidden;
+        // @media (max-width: 700px) {
+        //     max-width: 70%; // Réduit la largeur à 90% de l'écran pour les écrans de moins de 700px
+        // }
     }
 }
 
@@ -315,6 +317,7 @@ article{
     height:50px;
 }
 #wpcf7-f44-o1,.wpcf7-form.sent,.wpcf7-form.invalid{
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -347,6 +350,17 @@ article{
     display: inline-block;
     vertical-align: middle;
 }
+.wpcf7-response-output{
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    top:-180px;
+    background-color: $color-tertiary;
+    border-color: none;
+    height:150px;
+}
+
 
 // ------------------------------------------------------------------------
 // -------------- STYLES SUR DISPOSITION DES PHOTOS ACCUEIL ---------------
@@ -660,21 +674,6 @@ button.open-contact-modal{
     margin-right: 0; // Supprimer l'espace à droite pour la flèche droite
 }
 
-@media (max-width: 1160px) {
-
-    // .filters1 {
-    //     gap:4%;
-    //     max-width: 450px;
-    //     width:49%;
-    // }
-    
-    // .filters2 {
-    //     max-width: 450px;
-    //     width:49%;
-    //     margin: 0;
-    //     padding: 0;
-    // }
-}
 @media (max-width: 600px) {
     #menu-main-menu.navigation{
         width:100%;
@@ -686,7 +685,7 @@ button.open-contact-modal{
         }
     .filters1 {
         display: flex;
-        flex-direction:column;
+        flex-direction:column-reverse;
         gap:0;
         justify-content: center;
         align-items: center;
@@ -763,6 +762,9 @@ button.open-contact-modal{
 }
 
 @media (max-width: 450px) {
+    .icon-fullscreen {
+        display: none; /* Masque l'icône plein écran sur les appareils mobiles */
+    }
     .logo img{
         width: 138px!important;
         height: auto;
@@ -857,6 +859,7 @@ button.open-contact-modal{
         margin:0;
         height:auto;
     }
+
     .photo-single {
         display: flex;
         flex-direction: column-reverse;
@@ -867,5 +870,101 @@ button.open-contact-modal{
     }
     .card-nav{
         display: none;
+    }
+    //Modale
+    .contact-modal {
+        display: none;
+        
+        &-content {
+            background-color: #fff;
+            width: 100%;
+            height:80%;
+            max-width: 286px;
+            max-height: 583px;
+            // padding: 0px;
+            // border: 5px solid black;
+            // border-radius: 2px;
+            // box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+            // overflow:hidden;
+        }
+    }
+    
+    .modal-header {
+        display:flex;
+        margin: 20px 0px 0px -90px;
+        width:165%;
+        img {
+            justify-content: center;
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+    }
+    
+    .modal-fields {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        margin:0 auto;
+    }
+    
+    .contact-input,
+    .contact-textarea {
+        max-width: 190px;
+        height:40px;
+        border: 1px solid #B8BBC2;
+        border-radius: 8px;
+        box-sizing: border-box;
+        margin-top:1px;
+    }
+    
+    .contact-textarea {
+        height: 149px;
+        resize: none;
+    }
+    
+    .contact-submit-container {
+        display: flex;
+        justify-content: center;
+        position: relative;
+        margin: 0;
+        max-width: 190px;
+        width: 100%;
+        height:50px;
+    }
+    #wpcf7-f44-o1,.wpcf7-form.sent,.wpcf7-form.invalid{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        font-size: 20px;
+        font-weight: 600;
+        color: #000;
+    }
+    
+    .wpcf7-submit.has-spinner {
+        position:relative;
+        width:190px;
+        height:50px;
+        font-size: 12px;
+        background-color: #D8D8D8;
+        color: black;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+        text-align: center;
+    }
+    
+    .wpcf7-spinner {
+        position: absolute;
+        top: 50%;
+        right: 0px;
+        transform: translateY(-50%);
+        display: inline-block;
+        vertical-align: middle;
     }
 }

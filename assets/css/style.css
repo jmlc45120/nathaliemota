@@ -85,6 +85,7 @@ p {
 
 .lightbox-content {
   position: relative;
+  max-width: 80%;
   max-height: 90%;
   overflow-y: scroll;
   -ms-overflow-style: none; /* Masquer la barre de scroll dans IE et Edge */
@@ -127,7 +128,7 @@ p {
 }
 
 .lightbox-prev {
-  left: 6vw;
+  left: 2vw;
   width: 120px;
   height: 100px;
   background: url("/../../wp-content/uploads/2024/10/arrow-left.png") center center no-repeat;
@@ -138,7 +139,7 @@ p {
 }
 
 .lightbox-next {
-  right: 6vw;
+  right: 2vw;
   width: 120px;
   height: 100px;
   background: url("/../../wp-content/uploads/2024/10/arrow-right.png") center center no-repeat;
@@ -232,7 +233,7 @@ p {
      -moz-user-select: none;
           user-select: none;
 }
-.select-selected.non-null-value {
+.select-selected[data-value]:not([data-value=""]) {
   border-color: #215AFF;
 }
 
@@ -454,7 +455,6 @@ article {
 }
 
 .link-style, .header__container .header__nav a,
-.footer__container,
 .site-info a {
   position: relative;
   font-size: 16px;
@@ -462,7 +462,6 @@ article {
   color: #000000;
 }
 .link-style::after, .header__container .header__nav a::after,
-.footer__container::after,
 .site-info a::after {
   content: "";
   position: absolute;
@@ -473,13 +472,11 @@ article {
   transition: width 0.5s ease;
 }
 .link-style:hover, .header__container .header__nav a:hover,
-.footer__container:hover,
 .site-info a:hover {
   animation: text-color-animation 0.7s forwards;
   font-weight: 600;
 }
 .link-style:hover::after, .header__container .header__nav a:hover::after,
-.footer__container:hover::after,
 .site-info a:hover::after {
   animation: underline-animation 0.5s forwards;
 }
@@ -602,7 +599,7 @@ article {
 }
 .contact-modal-content {
   background-color: #fff;
-  width: 100%;
+  width: 70%;
   height: 80%;
   max-width: 597px;
   max-height: 769px;
@@ -661,6 +658,7 @@ article {
 }
 
 #wpcf7-f44-o1, .wpcf7-form.sent, .wpcf7-form.invalid {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -692,6 +690,17 @@ article {
   transform: translateY(-50%);
   display: inline-block;
   vertical-align: middle;
+}
+
+.wpcf7-response-output {
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  top: -180px;
+  background-color: #FFD6D6;
+  border-color: none;
+  height: 150px;
 }
 
 .photo-archive {
@@ -1009,7 +1018,7 @@ button.open-contact-modal:hover {
   }
   .filters1 {
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     gap: 0;
     justify-content: center;
     align-items: center;
@@ -1084,6 +1093,9 @@ button.open-contact-modal:hover {
   }
 }
 @media (max-width: 450px) {
+  .icon-fullscreen {
+    display: none; /* Masque l'icône plein écran sur les appareils mobiles */
+  }
   .logo img {
     width: 138px !important;
     height: auto;
@@ -1186,5 +1198,88 @@ button.open-contact-modal:hover {
   }
   .card-nav {
     display: none;
+  }
+  .contact-modal {
+    display: none;
+  }
+  .contact-modal-content {
+    background-color: #fff;
+    width: 100%;
+    height: 80%;
+    max-width: 286px;
+    max-height: 583px;
+  }
+  .modal-header {
+    display: flex;
+    margin: 20px 0px 0px -90px;
+    width: 165%;
+  }
+  .modal-header img {
+    justify-content: center;
+    width: 100%;
+    height: auto;
+    -o-object-fit: cover;
+       object-fit: cover;
+  }
+  .modal-fields {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 0 auto;
+  }
+  .contact-input,
+  .contact-textarea {
+    max-width: 190px;
+    height: 40px;
+    border: 1px solid #B8BBC2;
+    border-radius: 8px;
+    box-sizing: border-box;
+    margin-top: 1px;
+  }
+  .contact-textarea {
+    height: 149px;
+    resize: none;
+  }
+  .contact-submit-container {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    margin: 0;
+    max-width: 190px;
+    width: 100%;
+    height: 50px;
+  }
+  #wpcf7-f44-o1, .wpcf7-form.sent, .wpcf7-form.invalid {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    font-size: 20px;
+    font-weight: 600;
+    color: #000;
+  }
+  .wpcf7-submit.has-spinner {
+    position: relative;
+    width: 190px;
+    height: 50px;
+    font-size: 12px;
+    background-color: #D8D8D8;
+    color: black;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    text-align: center;
+  }
+  .wpcf7-spinner {
+    position: absolute;
+    top: 50%;
+    right: 0px;
+    transform: translateY(-50%);
+    display: inline-block;
+    vertical-align: middle;
   }
 }

@@ -59,8 +59,8 @@
     border-radius: 8px;
     cursor: pointer;
     user-select: none;
-    &.non-null-value {
-        border-color: #215AFF; 
+    &[data-value]:not([data-value=""]) {
+        border-color: #215AFF;
     }
 }
 

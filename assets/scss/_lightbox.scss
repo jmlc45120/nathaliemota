@@ -18,7 +18,7 @@
 
 .lightbox-content {
     position: relative;
-    // max-width: 90%;
+    max-width: 80%;
     max-height: 90%;
     overflow-y: scroll;
     -ms-overflow-style: none;  /* Masquer la barre de scroll dans IE et Edge */
@@ -62,7 +62,7 @@
 }
 
 .lightbox-prev {
-    left: 6vw;
+    left: 2vw;
     width:120px;
     height:100px;
     background: url('#{$base-url}/arrow-left.png') center center no-repeat;
@@ -73,7 +73,7 @@
 }
 
 .lightbox-next {
-    right: 6vw;
+    right: 2vw;
     width:120px;
     height:100px;
     background: url('#{$base-url}/arrow-right.png') center center no-repeat;

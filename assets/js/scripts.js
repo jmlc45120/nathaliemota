@@ -1,4 +1,11 @@
 document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('wpcf7mailsent', function(event) {
+        const responseOutput = modal.querySelector('.wpcf7-response-output');
+        if (responseOutput) {
+            responseOutput.style.display = 'flex'; // Affiche le message
+            responseOutput.setAttribute('aria-hidden', 'false'); // Rend le message visible aux lecteurs d'écran
+        }
+    });
     // Variables
     const modal = document.getElementById('contactModal');
     const modalContent = document.querySelector('.contact-modal-content');
@@ -20,6 +27,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     burgerMenu.addEventListener('click', function() {
         headerNav.classList.toggle('active');
+    });
+
+    window.addEventListener('resize', function() {
+        if (window.innerWidth > 768) {
+            headerNav.classList.remove('active');
+        }
     });
 
     // Variables globales pour conserver les filtres sélectionnés
@@ -47,6 +60,29 @@ document.addEventListener('DOMContentLoaded', function() {
     if (heroImage) heroImage.style.opacity = '1';
     if (heroTitle) heroTitle.style.opacity = '1';
 
+    function resetModal() {
+        // Réinitialiser tous les champs de texte et textarea
+        const inputs = modal.querySelectorAll('input[type="text"], input[type="email"], textarea');
+        inputs.forEach(input => {
+            input.value = ''; // Réinitialiser la valeur des champs
+        });
+    
+        // Réinitialiser les messages de retour ou de validation, le cas échéant
+        const responseOutput = modal.querySelector('.wpcf7-response-output');
+        if (responseOutput) {
+            responseOutput.textContent = ''; // Efface le message de réponse
+            responseOutput.style.display = 'none'; // Masque la div complètement
+            responseOutput.setAttribute('aria-hidden', 'true'); // Cache le message aux lecteurs d'écran
+        }
+    }
+    function displayResponseMessage(message) {
+        const responseOutput = modal.querySelector('.wpcf7-response-output');
+        if (responseOutput) {
+            responseOutput.textContent = message;
+            responseOutput.style.display = 'flex'; // Affiche la div si un message est présent
+            responseOutput.setAttribute('aria-hidden', 'false'); // Montre le message pour les lecteurs d'écran
+        }
+    }
     // Fonction pour gérer la modale
     function initializeModal() {
         if (modal) {
@@ -67,6 +103,7 @@ document.addEventListener('DOMContentLoaded', function() {
             window.addEventListener('click', function(event) {
                 if (event.target === modal && !modalContent.contains(event.target)) {
                     modal.classList.remove('open'); // Fermeture de la modale
+                    resetModal();
                 }
             });
         }

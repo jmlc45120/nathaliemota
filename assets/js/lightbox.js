@@ -1,4 +1,10 @@
 document.addEventListener('DOMContentLoaded', function () {
+    const isMobile = window.innerWidth < 450; // Par exemple, écran moins de 768px
+
+    if (isMobile) {
+        console.log("Lightbox désactivée sur mobile.");
+        return; // Quitte la fonction si l'appareil est mobile
+    }
     const lightbox = document.createElement('div');
     lightbox.id = 'custom-lightbox';
     lightbox.innerHTML = `

@@ -1,4 +1,5 @@
 <?php
+
 // Fonction pour enqueuee les styles et scripts
 function theme_nathaliemota_enqueue_styles()
 {
@@ -21,29 +22,42 @@ function theme_nathaliemota_enqueue_styles()
 }
 add_action('wp_enqueue_scripts', 'theme_nathaliemota_enqueue_styles');
 
-function custom_admin_css() {
-    echo '<style>
-        ul.wp-submenu.wp-submenu-wrap li:nth-child(4) {
-            display: none;
-        }
-        #toplevel_page_wpcf7 {
-            display: none;
-        }
-            #menu-pages, #menu-posts, #menu-dashboard, #menu-tools {
-            display: none;
-        }
-    </style>';
-}
-add_action('admin_head', 'custom_admin_css');
-
 // Fonction pour enqueuer les scripts et styles pour la lightbox
 function custom_lightbox_scripts() {
     wp_enqueue_script('custom-lightbox', get_template_directory_uri() . '/assets/js/lightbox.js', array(), '1.0', true);
-    // wp_enqueue_style('custom-lightbox-style', get_template_directory_uri() . '/assets/css/lightbox.css');
 }
+
 add_action('wp_enqueue_scripts', 'custom_lightbox_scripts');
 
-// Ajouter le support du logo personnalisé
+function exclude_media_from_editor($query) {
+    if (!current_user_can('administrator')) {
+        $query->set('post__not_in', array(151,150,149,148,147,140,142,136,53)); // Remplace par les ID des médias à exclure
+    }
+}
+add_action('pre_get_posts', 'exclude_media_from_editor');
+
+function custom_admin_css() {
+    if (!current_user_can('administrator')) {
+    echo '<style>
+        #dashboard_right_now, #menu-pages, #menu-posts, #menu-dashboard, #menu-tools, #toplevel_page_wpcf7,ul.wp-submenu.wp-submenu-wrap li:nth-child(4) {
+        display: none;
+        }
+    </style>';
+    }
+}
+add_action('admin_head', 'custom_admin_css');
+
+
+// Charger les scripts de manière asynchrone
+function add_defer_attribute($tag, $handle) {
+    if ('main-scripts' === $handle || 'custom-lightbox' === $handle) {
+        return str_replace(' src', ' defer="defer" src', $tag);
+    }
+    return $tag;
+}
+add_filter('script_loader_tag', 'add_defer_attribute', 10, 2);
+
+// Ajout du support du logo personnalisé
 function theme_setup() {
     add_theme_support('custom-logo', array(
         'height'      => 100,
@@ -54,7 +68,7 @@ function theme_setup() {
 }
 add_action('after_setup_theme', 'theme_setup');
 
-// Enregistrer le menu de navigation
+// Enregistrement du menu de navigation
 function register_my_menus()
 {
     register_nav_menus(array(

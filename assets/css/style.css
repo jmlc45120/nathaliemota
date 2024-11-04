@@ -645,6 +645,10 @@ article {
   height: 150px;
 }
 
+#post-48 div h1, #post-46 div h1 {
+  display: none;
+}
+
 .photo-archive {
   display: flex;
   width: 100%;
@@ -795,8 +799,8 @@ article {
   top: 20px;
   left: 20px;
   color: white;
-  font-size: 16px;
-  font-weight: bold;
+  font-size: 14px;
+  font-weight: 500;
 }
 
 .photo-category-ovl {
@@ -805,7 +809,7 @@ article {
   right: 20px;
   color: white;
   font-size: 14px;
-  font-style: italic;
+  font-weight: 400;
 }
 
 .footer__container {

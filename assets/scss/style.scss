@@ -257,7 +257,6 @@ article{
         padding: 0;
     }
 
-
     .photograph {
         display: inline-block;
         transform: translateX(-100%); /* Initialement en dehors de l'écran à gauche */
@@ -399,6 +398,10 @@ article{
     background-color: $color-tertiary;
     border-color: none;
     height:150px;
+}
+
+#post-48 div h1, #post-46 div h1 {
+    display:none;
 }
 
 // ------------------------------------------------------------------------
@@ -556,7 +559,6 @@ article{
 .photo-info-ovl{
     width:100%;
     height:100%;
-
 }
 
 .photo-title-ovl {
@@ -564,8 +566,8 @@ article{
     top: 20px;
     left: 20px;
     color: white;
-    font-size: 16px;
-    font-weight: bold;
+    font-size: 14px;
+    font-weight: 500;
 }
 
 .photo-category-ovl {
@@ -574,7 +576,7 @@ article{
     right: 20px;
     color: white;
     font-size: 14px;
-    font-style: italic;
+    font-weight: 400;
 }
 
 // ------------------------------------------------------------------------

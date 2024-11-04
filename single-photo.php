@@ -97,7 +97,8 @@
                         $related_photos = new WP_Query(array(
                             'post_type' => 'photo',
                             'posts_per_page' => 2,
-                            'post__not_in' => array(get_the_ID()), // Exclure la photo actuelle
+                            'post__not_in' => array(get_queried_object_id()), // Exclure la photo actuelle
+                            'ignore_sticky_posts' => true, // Pour éviter les doublons dus aux posts sticky
                             'tax_query' => array(
                                 array(
                                     'taxonomy' => 'categorie-photo',
@@ -105,7 +106,8 @@
                                     'terms' => $category_ids,
                                 ),
                             ),
-                        ));?>
+                        ));
+                        ?>
                         <?php if ($related_photos->have_posts()) :?>
                             <div class="photo-archive">
                                 <div class="photo-grid">  
@@ -131,4 +133,4 @@
     ?>
 </main>
 
-<?php get_template_part( 'template-parts/footer' ); ?>
+<?php get_template_part('template-parts/footer'); ?>

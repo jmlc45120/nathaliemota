@@ -2,14 +2,67 @@
 @import 'mixins';
 // imports VARIABLES ---------------------------------
 @import 'variables';
-// imports TYPOGRAPHY ---------------------------------
-@import 'typography';
 // imports LIGHTBOX ---------------------------------
 @import 'lightbox';
 // imports FILTERS SECTION ---------------------------------
 @import 'filters-section';
 // imports SMALLER SCREENS ---------------------------------
-@import 'smaller-screens';
+
+body{
+    font-family: $font-monospace;
+}
+
+// ---------- TYPOGRAPHIES DESKTOP -------------
+h1 {
+    font-family: $font-monospace;
+    font-size: 96px;
+    font-style: italic;
+    font-weight: 700;
+    color: black;
+}
+h2 {
+    font-family: $font-monospace;
+    font-size: 66px;
+    font-style: italic;
+    font-weight: 400;
+    color: black;
+}
+h3 {
+    font-family: $font-monospace;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    color: black;
+}
+p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 300;
+    color: black;
+}
+#category-filter option{
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    color: black;
+}
+.contact-modal-content p, .select-selected{
+    @include modale-select-font;
+}
+
+.photo-meta p{
+    @include description-photo-font;
+}
+
+.header__nav a , .site-info a , .site-info p{
+    @include header-footer-font;
+}
+// ------------------------------------------------------------------------
+// -------------------------- STYLES GLOBAUX ------------------------------
+// ------------------------------------------------------------------------
 
 *,
 *::before,
@@ -53,7 +106,7 @@ main {
         display: flex;
         justify-content: center;
         align-items: center;
-        box-shadow: 0px 4px 14px 10px #00000008; // Ajout du box-shadow
+        box-shadow: 0px 4px 14px 10px rgba($color-black, 0.03); // Ajout du box-shadow
     }
     &__nav {
         width: 100%;
@@ -81,52 +134,9 @@ article{
     max-width:1148px;
     width:100%;
 }
-.footer__container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    max-width: 1440px;
-    width: 100%;
-    height: 50px;
-    padding: 0;
-    border-top: 1px solid black;
-}
-.link-style {
-    position: relative;
-    font-size: 16px;
-    text-decoration: none;
-    color: $color-black;
-
-    &::after {
-        content: '';
-        position: absolute;
-        left: 0;
-        bottom: -3px;
-        height: 3px;
-        background-color: $color-primary;
-        transition: width 0.5s ease;
-    }
-
-    &:hover {
-        animation: text-color-animation 0.7s forwards;
-        font-weight: 600;
-
-        &::after {
-            animation: underline-animation 0.5s forwards;
-        }
-    }
-}
-
-// Application de la classe et des marges spécifiques
-.header__container .header__nav a,
-.site-info a {
-    @extend .link-style;
-}
-
-.header__container .header__nav li,
-.footer__container {
-    margin-left: 0px; // Appliquer la marge uniquement aux éléments nécessaires
-}
+// ------------------------------------------------------------------------
+// ------------------------ EFFET VISUEL SUR LES LIENS --------------------
+// ------------------------------------------------------------------------
 
 @keyframes underline-animation {
     0% {
@@ -154,9 +164,39 @@ article{
         color: $color-primary;
     }
 }
+
+.link-style {
+    position: relative;
+    font-size: 16px;
+    text-decoration: none;
+    color: $color-black;
+    &::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: -3px;
+        height: 3px;
+        background-color: $color-primary;
+        transition: width 0.5s ease;
+    }
+    &:hover {
+        animation: text-color-animation 0.7s forwards;
+        font-weight: 600;
+        &::after {
+            animation: underline-animation 0.5s forwards;
+        }
+    }
+}
+
+.header__container .header__nav a,
+.site-info a {
+    @extend .link-style;
+}
+
 // ------------------------------------------------------------------------
 // ------------------------------ STYLES DU HERO --------------------------
 // ------------------------------------------------------------------------
+
 .hero-image {
     position: relative;
     overflow: hidden;
@@ -165,6 +205,33 @@ article{
     justify-content: center;
     align-items: center;
     
+    @keyframes fadeIn {
+        to {
+            opacity: 1;
+        }
+    }
+    
+    @keyframes slideInFromLeft {
+        0% {
+            opacity: 0;//masqué
+            transform: translateX(-200%);
+        }
+        100% {
+            opacity: 1;//visible
+            transform: translateX(0);
+        }
+    }
+    
+    @keyframes slideInFromTop {
+        0% {
+            opacity: 0;
+            transform: translateY(-200%);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
     img {
         width: 100%;
         height: 100%;
@@ -173,12 +240,12 @@ article{
         animation: fadeIn 3s forwards;
     }
 
-    .hero-title {
+    h1.hero-title {
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        font-size: clamp(24px, 8vw, 96px);
+        font-size: clamp(24px, 6vw, 96px);
         font-weight: 700;
         font-style: italic;
         text-align: center;
@@ -186,7 +253,10 @@ article{
         -webkit-text-stroke: 2px white;
         white-space: nowrap;
         opacity: 0;
+        margin: 0;
+        padding: 0;
     }
+
 
     .photograph {
         display: inline-block;
@@ -203,33 +273,6 @@ article{
     }
 }
 
-@keyframes fadeIn {
-    to {
-        opacity: 1;
-    }
-}
-
-@keyframes slideInFromLeft {
-    0% {
-        opacity: 0; /* Masquer au début de l'animation */
-        transform: translateX(-200%);
-    }
-    100% {
-        opacity: 1; /* Rendre visible à la fin de l'animation */
-        transform: translateX(0);
-    }
-}
-
-@keyframes slideInFromTop {
-    0% {
-        opacity: 0; /* Masquer au début de l'animation */
-        transform: translateY(-200%);
-    }
-    100% {
-        opacity: 1; /* Rendre visible à la fin de l'animation */
-        transform: translateY(0);
-    }
-}
 
 
 // ------------------------------------------------------------------------
@@ -253,7 +296,7 @@ article{
     align-items: center;
     }
     &-content {
-        background-color: #fff;
+        background-color: $color-white;
         width: 70%;
         height:80%;
         max-width: 597px;
@@ -261,11 +304,8 @@ article{
         padding: 0px;
         border: 5px solid black;
         border-radius: 2px;
-        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 4px 24px rgba($color-black, 0.1);
         overflow:hidden;
-        // @media (max-width: 700px) {
-        //     max-width: 70%; // Réduit la largeur à 90% de l'écran pour les écrans de moins de 700px
-        // }
     }
 }
 
@@ -294,7 +334,7 @@ article{
 .contact-textarea {
     max-width: 263px;
     height:40px;
-    border: 1px solid #B8BBC2;
+    border: 1px solid $color-border-default;
     border-radius: 8px;
     box-sizing: border-box;
     margin-top:1px;
@@ -314,6 +354,7 @@ article{
     width: 100%;
     height:50px;
 }
+
 #wpcf7-f44-o1,.wpcf7-form.sent,.wpcf7-form.invalid{
     position: relative;
     display: flex;
@@ -332,7 +373,7 @@ article{
     width:263px;
     height:50px;
     font-size: 12px;
-    background-color: #D8D8D8;
+    background-color: $color-light-gray;
     color: black;
     border: none;
     border-radius: 3px;
@@ -342,12 +383,13 @@ article{
 
 .wpcf7-spinner {
     position: absolute;
-    top: 50%;
+    top: 75%;
     right: 0px;
     transform: translateY(-50%);
     display: inline-block;
     vertical-align: middle;
 }
+
 .wpcf7-response-output{
     position: absolute;
     align-items: center;
@@ -359,45 +401,42 @@ article{
     height:150px;
 }
 
-
 // ------------------------------------------------------------------------
 // -------------- STYLES SUR DISPOSITION DES PHOTOS ACCUEIL ---------------
 // ------------------------------------------------------------------------
+
 .photo-archive{
     display: flex;
     width:100%;
 }
+
 .photo-grid {
     display: grid;
     max-width: 1148px;
     width:100%;
     grid-template-columns: repeat(2, 1fr); // Deux colonnes
-    column-gap: 20px; // Espace entre les éléments
-    row-gap:20px;
+    gap: 20px;
     padding:0;
-
-
     article a {
         margin:0px;
         padding:0px;
     }
-
     p {
         padding:0 0 0 -40vw;
         font-size: 20px;
-
     }
 }
 
+// ------- leger effet zoom sur les images au survol ---------------------
 .related-photo-item img {
-    transition: transform 2.5s ease-in-out;
+    transition: transform 2.0s ease-in-out;
 }
 
 .related-photo-item:hover img {
-    transform: scale(1.03); /* Zoom à 110% */
+    transform: scale(1.02);
 }
 
-// Bouton "CHARGER PLUS"
+// ---------- Bouton "CHARGER PLUS" ------------------
 .load-more-container{
     display: flex;
     justify-content: center;
@@ -415,17 +454,18 @@ article{
     height:50px;
     border-radius: 2px;
     border:none;
-    background-color: #D8D8D8;
+    background-color: $color-light-gray;
     margin:0;
-    box-shadow: 0px 2px 1px 0px #00000005;
+    box-shadow: 0px 2px 1px 0px rgba($color-black, 0.02);
     &:hover{
         color:white;
-        background-color: black;
+        background-color: $color-black;
         font-size:12px;
         font-weight: 700;
         cursor:pointer;
     }
 }
+
 // ------------------------------------------------------------------------
 // ------------------------- STYLES PHOTO-BLOCK ---------------------------
 // ------------------------------------------------------------------------
@@ -465,9 +505,11 @@ article{
     height: 100%;
     object-fit: cover;
 }
+
 // ------------------------------------------------------------------------
 // ----------------------- ACCUEIL : PHOTO OVERLAY ------------------------
 // ------------------------------------------------------------------------
+
 .photo-overlay {
     position: absolute;
     display: flex;
@@ -486,12 +528,14 @@ article{
 .photo-link:hover .photo-overlay {
     opacity: 1;
 }
+
 .fas.fa-eye,.icon-fullscreen{
     opacity: 0.4;
     &:hover{
         opacity:0.8;
     }
 }
+
 .icon-eye,
 .icon-fullscreen {
     position:absolute;
@@ -499,10 +543,12 @@ article{
     font-size: 34px;
     cursor: pointer;
 }
+
 .icon-eye {
     top:5%;
-    right:15%;
+    right:20%;
 }
+
 .icon-fullscreen {
     top:5%;
     right:5%;
@@ -512,6 +558,7 @@ article{
     height:100%;
 
 }
+
 .photo-title-ovl {
     position: absolute;
     top: 20px;
@@ -534,12 +581,24 @@ article{
 // --------------------------- STYLES DU FOOTER ---------------------------
 // ------------------------------------------------------------------------
 
-.site-info {
+.footer__container {
     display: flex;
     justify-content: center;
     align-items: center;
-    max-width:1440px;
-    gap:80px;
+    max-width: 1440px;
+    width: 100%;
+    height: 50px;
+    padding: 0;
+    border-top: 1px solid black;
+}
+
+.site-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width:560px;
+    width:100%;
+    margin:0 10px;
     a{
         margin:0;
         padding:0;
@@ -597,6 +656,7 @@ article{
     padding: 0 10px 10px 0;
     margin:0 0px 5px 0;
 }
+
 .photo-navigation{
     display:flex;
     justify-content:space-between;
@@ -605,6 +665,7 @@ article{
     padding:0px;
     border-bottom: 1px solid #000;
 }
+
 .single-cta{
     display:flex;
     justify-content: space-between;
@@ -614,6 +675,7 @@ article{
     margin:0 ;
     padding: 0;
 }
+
 // bouton Contact ---------------------------
 button.open-contact-modal{
     display: flex;
@@ -624,19 +686,21 @@ button.open-contact-modal{
     height:50px;
     border-radius: 2px;
     border:none;
-    background-color: #D8D8D8;
+    background-color: $color-light-gray;
     &:hover{
-        background-color: #B8BBC2;
+        background-color: $color-border-default;
         font-weight: 600;
         cursor:pointer;
     }
 }
+
 // Affichage miniature --------------------------
 .long-arrow {
     display: inline-block;
     font-size: 25px;
     line-height: 1;
 }
+
 .card-nav{
     display:flex;
     flex-direction: column;
@@ -655,6 +719,7 @@ button.open-contact-modal{
         object-fit: cover;
     }
 }
+
 .arrow-nav {
     display: flex;
     justify-content: space-between;
@@ -665,305 +730,12 @@ button.open-contact-modal{
 
 .prev-photo img,
 .next-photo img {
-    width: 30px; // Ajuster la taille de l'image
+    width: 30px;
     height: auto;
 }
 
 .next-photo img {
-
-    margin-right: 0; // Supprimer l'espace à droite pour la flèche droite
+    margin-right: 0;
 }
 
-// ------------------------------------------------------------------------
-// ---------------------------MEDIA QUERIES-------------------------------
-//------------------------------------------------------------------------
-
-@media (max-width: 600px) {
-    #menu-main-menu.navigation{
-        width:100%;
-        justify-content: center;
-    }
-    .filters-section {
-        flex-direction: column;
-        margin: 12px 20px 20px 20px;
-        }
-    .filters1 {
-        display: flex;
-        flex-direction:column-reverse;
-        gap:0;
-        justify-content: center;
-        align-items: center;
-        width:100%;
-        max-width:300px;
-        height:auto;
-        margin: 0;
-        padding: 0;
-    }
-    .filters2 {
-            max-width: 300px;
-            width:100%;   
-            // margin-top: 8px;
-            padding: 0;
-        }
-    .custom-select {
-        position: relative;
-        display: inline-block;
-        width:100%;
-        height: 43px;
-        margin-top: 8px;
-        column-gap: 20px;
-    }
-    .select-selected{
-        justify-content: space-between;
-    }
-    .site-info {
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap:20px;
-    }
-    .footer__container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        max-width: 600px;
-        width: 80%;
-        padding:40px 0;
-        margin:0;
-        height:auto;
-    }
-
-    .photo-navigation{
-        height: 160px;
-        padding-right: 10vw;
-    }
-    .photo-meta p {
-        padding: 8px 0;
-        font-size:12px;
-        margin:0;
-    }
-    .single-cta{
-        display:flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        width:49%;
-        max-width:564px;
-        margin: 0 ;
-        padding: 20px 0;
-        p{
-            display: flex;
-            justify-content: center;
-            text-align: center ;
-            align-items: center;
-        }
-        button{
-            width:100%;
-            height:50px;
-            margin-bottom: 0px;
-        }
-    }
-}
-// -------------------------------------------
-@media (max-width: 450px) {
-    .icon-fullscreen {
-        display: none; /* Masque l'icône plein écran sur les appareils mobiles */
-    }
-    .logo img{
-        width: 138px!important;
-        height: auto;
-        display: block;
-    }
-    .hero-section{
-        margin-top:0px;
-    }
-    .hero-title {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-size: 34px!important;
-        font-weight: 700;
-        font-style: italic;
-        text-align: center;
-        color: transparent;
-        -webkit-text-stroke: 1px white;
-        white-space: nowrap;
-        opacity: 0;
-    }
-
-    .photograph {
-        display: inline-block;
-        transform: translateX(-100%); /* Initialement en dehors de l'écran à gauche */
-        opacity: 0;
-        animation: slideInFromLeft 2s forwards 2s; /* Animation de déplacement */
-    }
-
-    .event {
-        display: inline-block;
-        transform: translateY(-200%); /* Initialement en dehors de l'écran en haut */
-        opacity: 0;
-        animation: slideInFromTop 0.3s forwards 3.5s; /* Animation de déplacement */
-    }
-    .photo-grid {
-        display: grid;
-        max-width: 1148px;
-        width:100%;
-        grid-template-columns: repeat(1, 1fr);
-        row-gap:20px ;
-        padding:0;
-        article a {
-            margin:0px;
-            padding:0px;
-        }
-        p {
-            padding:0 0 0 -40vw;
-            font-size: 20px;
-        }
-    }
-    .thumbnail-photo{
-        width:100%;
-        max-width: 450px;
-    }
-    .photo-info {
-        width: 100%;
-        max-width: 450px;
-    }
-    .photo-meta p {
-        font-size:14px;
-    }
-    .photo-title {
-        font-size:46px;
-    }
-    .photo-navigation{
-        padding-right: 0;
-        justify-content: center;
-    }
-    .single-cta{
-        width:100%;
-        max-width:263px;
-        align-items: flex-start
-    }
-    .related-photos{
-        display: flex;
-        flex-direction: column;
-        align-items:center;
-        margin-top: 15px;
-    }
-    .photo-list{
-        margin-top:15px;
-    }
-    .footer__container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        max-width: 450px;
-        width: 80%;
-        padding:40px 0;
-        margin:0;
-        height:auto;
-    }
-
-    .photo-single {
-        display: flex;
-        flex-direction: column-reverse;
-        gap:20px;
-        justify-content: center;
-        width: 100%;
-        height:auto;
-    }
-    .card-nav{
-        display: none;
-    }
-    //Modale
-    .contact-modal {
-        display: none;
-        
-        &-content {
-            background-color: #fff;
-            width: 100%;
-            height:80%;
-            max-width: 286px;
-            max-height: 583px;
-        }
-    }
-    
-    .modal-header {
-        display:flex;
-        margin: 20px 0px 0px -90px;
-        width:165%;
-        img {
-            justify-content: center;
-            width: 100%;
-            height: auto;
-            object-fit: cover;
-        }
-    }
-    
-    .modal-fields {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        margin:0 auto;
-    }
-    
-    .contact-input,
-    .contact-textarea {
-        max-width: 190px;
-        height:40px;
-        border: 1px solid #B8BBC2;
-        border-radius: 8px;
-        box-sizing: border-box;
-        margin-top:1px;
-    }
-    
-    .contact-textarea {
-        height: 149px;
-        resize: none;
-    }
-    
-    .contact-submit-container {
-        display: flex;
-        justify-content: center;
-        position: relative;
-        margin: 0;
-        max-width: 190px;
-        width: 100%;
-        height:50px;
-    }
-    #wpcf7-f44-o1,.wpcf7-form.sent,.wpcf7-form.invalid{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        height: 100%;
-        font-size: 20px;
-        font-weight: 600;
-        color: #000;
-    }
-    
-    .wpcf7-submit.has-spinner {
-        position:relative;
-        width:190px;
-        height:50px;
-        font-size: 12px;
-        background-color: #D8D8D8;
-        color: black;
-        border: none;
-        border-radius: 3px;
-        cursor: pointer;
-        text-align: center;
-    }
-    
-    .wpcf7-spinner {
-        position: absolute;
-        top: 50%;
-        right: 0px;
-        transform: translateY(-50%);
-        display: inline-block;
-        vertical-align: middle;
-    }
-}
+@import 'smaller-screens';

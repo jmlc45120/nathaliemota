@@ -1,16 +1,5 @@
-.navigation li {
-    margin: 0;
-}
+//Initialisation des styles du menu burger avant son affichage
 
-.navigation a {
-    text-decoration: none;
-    color: #333;
-    &:hover {
-        font-weight: bold;
-    }
-}
-
-/* Styles pour le burger menu */
 .burger-menu {
     display: none;
     flex-direction: column;
@@ -19,7 +8,7 @@
     height: 21px;
     cursor: pointer;
     position: relative;
-    z-index: 2; // Assurez-vous que le menu burger est au-dessus du menu
+    z-index: 2;
 }
 
 .burger-bar {
@@ -30,10 +19,26 @@
     transition: transform 0.1s ease, opacity 0.3s ease;
 }
 
-/* Styles pour la version mobile */
+// -----------------------------------------------------------------------
+// ---------------------------MEDIA QUERIES-------------------------------
+//------------------------------------------------------------------------
 
 @media (max-width: 768px) {
-    
+
+h1 {
+    font-family: $font-monospace;
+    font-size: 28px;
+    font-style: italic;
+    font-weight: 700;
+    color: black;
+}
+h2 {
+    font-family: $font-monospace;
+    font-size: 46px;
+    font-style: italic;
+    font-weight: 400;
+    color: black;
+}
     .header {
         &__container {
             display: flex;
@@ -43,7 +48,7 @@
             width: 100%;
             height: 80px;
             padding: 0 !important;
-            box-shadow: 0px 4px 14px 10px #00000008; // Ajout du box-shadow
+            box-shadow: 0px 4px 14px 10px rgba($color-black, 0.03); // Ajout du box-shadow
         }
         &__nav {
             display: none;
@@ -51,9 +56,9 @@
             top: 80px;
             left: 0;
             width: 100%;
-            background-color: #fff;
-            border-top: 1px solid #ccc;
-            border-bottom: 1px solid #ccc;
+            background-color: $color-white;
+            border-top: 1px solid $color-border-default;
+            border-bottom: 1px solid $color-border-default;
             align-items: center;
             &.active {
                 display: flex;
@@ -83,5 +88,254 @@
     }
     .header__nav.active ~ .burger-menu .burger-bar:nth-child(3) {
         transform: translateY(-7px) rotate(-45deg);
+    }
+}
+
+@media (max-width: 600px) {
+    #menu-main-menu.navigation{
+        width:100%;
+        justify-content: center;
+    }
+
+    .filters-section {
+        flex-direction: column;
+        margin: 12px 20px 20px 20px;
+        }
+
+    .filters1 {
+        display: flex;
+        flex-direction:column-reverse;
+        gap:0;
+        justify-content: center;
+        align-items: center;
+        width:100%;
+        max-width:300px;
+        height:auto;
+        margin: 0;
+        padding: 0;
+    }
+
+    .filters2 {
+            max-width: 300px;
+            width:100%;   
+            padding: 0;
+    }
+
+    .custom-select {
+        position: relative;
+        display: inline-block;
+        width:100%;
+        height: 43px;
+        margin-top: 8px;
+        column-gap: 20px;
+    }
+
+    .icon-fullscreen {
+        display: none; /* Masque l'icône plein écran sur les appareils mobiles */
+    }
+
+    .select-selected{
+        justify-content: space-between;
+    }
+
+    .site-info {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap:20px;
+    }
+
+    .logo img{
+        width: 138px!important;
+        height: auto;
+        display: block;
+    }
+
+    .hero-section{
+        margin-top:0px;
+    }
+
+    .hero-title {
+        font-weight: 700;
+        -webkit-text-stroke: 1px white;
+    }
+
+    .photo-grid {
+        display: grid;
+        max-width: 1148px;
+        width:100%;
+        grid-template-columns: repeat(1, 1fr);
+        padding:0;
+        p {
+            padding:0 0 0 -40vw;
+            font-size: 20px;
+        }
+    }
+
+    .thumbnail-photo{
+        width:100%;
+        max-width: 600px;
+    }
+
+    .photo-info {
+        width: 100%;
+        max-width: 600px;
+    }
+
+    .photo-meta p {
+        padding: 8px 0;
+        font-size:14px;
+        margin:0;
+    }
+    .photo-navigation{
+        height: 160px;
+        padding-right: 10vw;
+    }
+
+    .single-cta{
+        display:flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        width:100%;
+        max-width:564px;
+        margin: 0 ;
+        padding: 20px 0;
+        p{
+            display: flex;
+            justify-content: center;
+            text-align: center ;
+            align-items: center;
+        }
+        button{
+            width:100%;
+            height:50px;
+            margin-bottom: 0px;
+        }
+    }
+
+    .related-photos{
+        display: flex;
+        flex-direction: column;
+        align-items:center;
+        margin-top: 15px;
+    }
+
+    .photo-list{
+        margin-top:15px;
+    }
+    
+    .footer__container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        max-width: 600px;
+        width: 80%;
+        padding:40px 0;
+        margin:0;
+        height:auto;
+    }
+
+    .photo-single {
+        display: flex;
+        flex-direction: column-reverse;
+        gap:20px;
+        justify-content: center;
+        width: 100%;
+        height:auto;
+    }
+    .card-nav{
+        display: none;
+    }
+    //Adaptations pour la modale
+    .contact-modal {
+        display: none;
+        
+        &-content {
+            background-color: $color-white;
+            width: 100%;
+            height:80%;
+            max-width: 286px;
+            max-height: 583px;
+        }
+    }
+    
+    .modal-header {
+        display:flex;
+        margin: 20px 0px 0px -90px;
+        width:165%;
+        img {
+            justify-content: center;
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+    }
+    
+    .modal-fields {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        margin:0 auto;
+    }
+    
+    .contact-input,
+    .contact-textarea {
+        max-width: 190px;
+        height:40px;
+        border: 1px solid $color-border-default;
+        border-radius: 8px;
+        box-sizing: border-box;
+        margin-top:1px;
+    }
+    
+    .contact-textarea {
+        height: 149px;
+        resize: none;
+    }
+    
+    .contact-submit-container {
+        display: flex;
+        justify-content: center;
+        position: relative;
+        margin: 0;
+        max-width: 190px;
+        width: 100%;
+        height:50px;
+    }
+    #wpcf7-f44-o1,.wpcf7-form.sent,.wpcf7-form.invalid{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        font-size: 20px;
+        font-weight: 600;
+        color: black;
+    }
+    
+    .wpcf7-submit.has-spinner {
+        position:relative;
+        width:190px;
+        height:50px;
+        font-size: 12px;
+        background-color: $color-light-gray;
+        color: black;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+        text-align: center;
+    }
+    
+    .wpcf7-spinner {
+        position: absolute;
+        top: 50%;
+        right: 0px;
+        transform: translateY(-50%);
+        display: inline-block;
+        vertical-align: middle;
     }
 }

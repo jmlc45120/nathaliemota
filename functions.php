@@ -21,6 +21,21 @@ function theme_nathaliemota_enqueue_styles()
 }
 add_action('wp_enqueue_scripts', 'theme_nathaliemota_enqueue_styles');
 
+function custom_admin_css() {
+    echo '<style>
+        ul.wp-submenu.wp-submenu-wrap li:nth-child(4) {
+            display: none;
+        }
+        #toplevel_page_wpcf7 {
+            display: none;
+        }
+            #menu-pages, #menu-posts, #menu-dashboard, #menu-tools {
+            display: none;
+        }
+    </style>';
+}
+add_action('admin_head', 'custom_admin_css');
+
 // Fonction pour enqueuer les scripts et styles pour la lightbox
 function custom_lightbox_scripts() {
     wp_enqueue_script('custom-lightbox', get_template_directory_uri() . '/assets/js/lightbox.js', array(), '1.0', true);
@@ -118,7 +133,7 @@ function load_more_photos() {
     $photo_query = new WP_Query($args);
 
     if ($photo_query->have_posts()) :
-        echo '<div class="photo-grid">'; // Container de la grille de photos
+        echo '<div class="photo-grid">'; // Conteneur de la grille de photos
         while ($photo_query->have_posts()) : $photo_query->the_post();
             get_template_part('template-parts/photo_block'); // Inclure le bloc photo
         endwhile;
@@ -128,7 +143,7 @@ function load_more_photos() {
         echo '<p>Aucune autre photo trouvée.</p>';
     endif;
 
-    wp_die(); // Terminer la requête
+    wp_die();
 }
 add_action('wp_ajax_load_more_photos', 'load_more_photos');
 add_action('wp_ajax_nopriv_load_more_photos', 'load_more_photos');
@@ -181,7 +196,7 @@ function filter_photos() {
     if ($photo_query->have_posts()) :
         echo '<div class="photo-grid">';
         while ($photo_query->have_posts()) : $photo_query->the_post();
-            get_template_part('template-parts/photo_block'); // Inclure le bloc photo
+            get_template_part('template-parts/photo_block');
         endwhile;
         echo '</div>';
         wp_reset_postdata();

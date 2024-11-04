@@ -31,9 +31,9 @@
             echo '<img src="' . esc_url($random_image_url) . '" alt="Hero Image">';
         }
         ?>
-        <div class="hero-title">
+        <h1 class="hero-title">
             <span class="photograph">PHOTOGRAPH</span> <span class="event">EVENT</span>
-        </div>
+        </h1>
     </div>
 </section>
 

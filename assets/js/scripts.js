@@ -1,10 +1,15 @@
 document.addEventListener('DOMContentLoaded', function() {
+    showLoader();
+    window.addEventListener('load', function() {
+        hideLoader();
+    });
     document.addEventListener('wpcf7mailsent', function(event) {
         const responseOutput = modal.querySelector('.wpcf7-response-output');
         if (responseOutput) {
             responseOutput.style.display = 'flex'; // Affiche le message
             responseOutput.setAttribute('aria-hidden', 'false'); // Rend le message visible aux lecteurs d'écran
         }
+
     });
     // Variables
     const modal = document.getElementById('contactModal');
@@ -69,13 +74,13 @@ document.addEventListener('DOMContentLoaded', function() {
     if (heroTitle) heroTitle.style.opacity = '1';
 
     function resetModal() {
-        // Réinitialiser tous les champs de texte et textarea
+        // Réinitialisation des champs de texte et textarea
         const inputs = modal.querySelectorAll('input[type="text"], input[type="email"], textarea');
         inputs.forEach(input => {
-            input.value = ''; // Réinitialiser la valeur des champs
+            input.value = '';
         });
     
-        // Réinitialiser les messages de retour ou de validation, le cas échéant
+        // Réinitialisation des messages de retour ou de validation
         const responseOutput = modal.querySelector('.wpcf7-response-output');
         if (responseOutput) {
             responseOutput.textContent = ''; // Efface le message de réponse
@@ -115,7 +120,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
     }
-    // appel fonction
+    // appel de la fonction
     initializeModal();
 
     // Fonction pour changer l'image de la miniature
@@ -135,7 +140,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function resetLightboxListeners() {
         // Vérifie que la fonction initializeFullscreenIcons est disponible
         if (typeof initializeFullscreenIcons === 'function') {
-            initializeFullscreenIcons(); // Réinitialiser les événements sur les icônes plein écran
+            initializeFullscreenIcons(); // Réinitialisation des événements sur les icônes plein écran
         }
     }
 
@@ -167,7 +172,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     initializeEyeIcons();
                     resetLightboxListeners();
                     collectImages();
-                    updateLoadMoreButtonState(); // Réinitialiser l'état du bouton
+                    updateLoadMoreButtonState(); // Réinitialisation de l'état du bouton
                 } else {
                     // Si aucune nouvelle photo, afficher un message ou désactiver le bouton
                     loadMoreButton.textContent = 'Aucune photo supplémentaire à charger.';
@@ -199,12 +204,12 @@ document.addEventListener('DOMContentLoaded', function() {
         page = 2;
         showLoader();
     
-        // Mettre à jour les variables globales des filtres sélectionnés
+        // Mise à jour des variables globales des filtres sélectionnés
         selectedCategory = categoryFilter ? categoryFilter.querySelector('.select-selected').dataset.value || '' : '';
         selectedFormat = formatFilter ? formatFilter.querySelector('.select-selected').dataset.value || '' : '';
         selectedSort = sortFilter ? sortFilter.querySelector('.select-selected').dataset.value || '' : '';
     
-        // Effectuer la requête AJAX avec les filtres sélectionnés
+        // Lancement de la requête AJAX avec les filtres sélectionnés
         const xhr = new XMLHttpRequest();
         xhr.open('GET', `/wp-admin/admin-ajax.php?action=filter_photos&category=${selectedCategory}&format=${selectedFormat}&sort=${selectedSort}`, true);
         xhr.onload = function() {

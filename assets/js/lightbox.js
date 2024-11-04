@@ -1,8 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const isMobile = window.innerWidth < 450;
+    const isMobile = window.innerWidth < 600;
 
     if (isMobile) {
-        console.log("Lightbox désactivée sur mobile.");
         return;
     }
 
@@ -106,7 +105,7 @@ document.addEventListener('DOMContentLoaded', function () {
     addLightboxEventListeners();
     initializeFullscreenIcons();
 
-    // Drag-scroll functionality
+    //  Fonctionnalité Drag and scroll
     lightboxImage.addEventListener('mousedown', function (e) {
         let startY = e.pageY - lightboxImage.offsetTop;
         let scrollTop = lightboxImage.parentElement.scrollTop;

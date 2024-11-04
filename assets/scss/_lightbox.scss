@@ -15,7 +15,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 2; /* Assurez-vous que l'overlay est au-dessus des autres éléments */
+    z-index: 2;
 }
 
 #custom-lightbox.open {
@@ -32,6 +32,9 @@
     overflow-x: hidden;
     -ms-overflow-style: none;  /* Masquer la barre de scroll dans IE et Edge */
     scrollbar-width: none;  /* Masquer la barre de scroll dans Firefox */
+    img{
+        object-fit: cover;
+    }
 }
 
 .lightbox-content::-webkit-scrollbar {
@@ -40,14 +43,12 @@
 
 .lightbox-img {
     width: 100%;
-    height: auto; /* Assure que l'image conserve son ratio en largeur */
-    max-height: none;
-    // display: block;
-    cursor: grab; /* Indique que l'image peut être glissée */
+    object-fit: cover;
+    cursor: grab;
 }
 
 .lightbox-img:active {
-    cursor: grabbing; /* Indique que l'image est en cours de glissement */
+    cursor: grabbing;
 }
 
 .lightbox-close {
@@ -108,7 +109,7 @@
 .lightbox-category {
     padding: 15px 20vw 0 0;
 }
-/* Désactiver le scroll de l'arrière-plan */
+/* Désactivation du scroll de l'arrière-plan */
 .no-scroll {
     overflow: hidden;
 }

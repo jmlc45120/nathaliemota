@@ -45,8 +45,8 @@
     opacity: 0; /* Rendre le texte invisible */
 }
 .custom-select:hover .select-items div[data-value=""]:hover {
-    opacity: 1; /* Affiche le texte sur le survol de l'option */
-    background-color: $color-tertiary; /* Change le fond pour une meilleure visibilité */
+    opacity: 1;
+    background-color: $color-tertiary;
 }
 .select-selected {
     position: relative;
@@ -55,12 +55,12 @@
     align-items: center;
     background-color: #f1f1f1;
     padding: 10px;
-    border:#B8BBC2 1px solid;
+    border:$color-border-default 1px solid;
     border-radius: 8px;
     cursor: pointer;
     user-select: none;
     &[data-value]:not([data-value=""]) {
-        border-color: #215AFF;
+        border-color: $color-border-selected;
     }
 }
 
@@ -82,8 +82,8 @@
     display: block;
     border: 2px solid red;
     position: absolute;
-    background-color: #fff !important;
-    border: 1px solid #ccc;
+    background-color: $color-white !important;
+    border: 1px solid $color-border-default;
     border-top: none;
     z-index: 2;
     width: 100%;
@@ -94,7 +94,7 @@
     padding: 10px;
     cursor: pointer;
     user-select: none;
-    background-color: #fff;
+    background-color: $color-white;
 }
 
 .select-items div:hover {
@@ -108,20 +108,20 @@
 // Option actuellement sélectionnée
 .select-items div.selected {
     background-color: $color-primary;
-    color: #fff; // Facultatif : couleur du texte pour l'option sélectionnée
+    color: $color-white; // Facultatif : couleur du texte pour l'option sélectionnée
 }
 
 // Assurez-vous que l'option par défaut (case vide) reste blanche
 .select-items div[data-value=""] {
     display:none;
-    background-color: #fff;
+    background-color: $color-white;
 }
 .select-hide {
     display: none;
 }
 .loader {
-    border: 16px solid #f3f3f3; /* Light grey */
-    border-top: 16px solid #3498db; /* Blue */
+    border: 16px solid $color-light-gray;
+    border-top: 16px solid $color-border-selected;
     border-radius: 50%;
     width: 120px;
     height: 120px;

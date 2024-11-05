@@ -22,7 +22,7 @@ function theme_nathaliemota_enqueue_styles()
 }
 add_action('wp_enqueue_scripts', 'theme_nathaliemota_enqueue_styles');
 
-// Fonction pour enqueuer les scripts et styles pour la lightbox
+// Fonction pour enqueuer les scripts pour la lightbox
 function custom_lightbox_scripts() {
     wp_enqueue_script('custom-lightbox', get_template_directory_uri() . '/assets/js/lightbox.js', array(), '1.0', true);
 }
@@ -39,16 +39,24 @@ add_action('pre_get_posts', 'exclude_media_from_editor');
 function custom_admin_css() {
     if (!current_user_can('administrator')) {
     echo '<style>
-        #dashboard_right_now, #menu-pages, #menu-posts, #menu-dashboard, #menu-tools, #toplevel_page_wpcf7,ul.wp-submenu.wp-submenu-wrap li:nth-child(4) {
-        display: none;
-        }
+        #dashboard_right_now,
+        #menu-posts,
+        #menu-dashboard,
+        #menu-tools,
+        #toplevel_page_wpcf7,
+        ul.wp-submenu.wp-submenu-wrap li:nth-child(4),
+        #post-6,
+        #post-113,
+        #post-48,
+        #post-50  {
+            display: none;
+            }
     </style>';
     }
 }
 add_action('admin_head', 'custom_admin_css');
 
-
-// Charger les scripts de manière asynchrone
+// Chargement des scripts de manière asynchrone
 function add_defer_attribute($tag, $handle) {
     if ('main-scripts' === $handle || 'custom-lightbox' === $handle) {
         return str_replace(' src', ' defer="defer" src', $tag);

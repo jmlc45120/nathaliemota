@@ -168,7 +168,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     // Ajoute les nouvelles photos à la grille
                     loadMoreContainer.querySelector('.photo-grid').insertAdjacentHTML('beforeend', newPhotos.innerHTML);
                     page++; // Incrémente la page
-                    // Réinitialiser les événements des icônes après le chargement de nouvelles photos
+                    // Réinitialise les événements des icônes après le chargement de nouvelles photos
                     initializeEyeIcons();
                     resetLightboxListeners();
                     collectImages();

@@ -91,14 +91,20 @@
                 <h3>VOUS AIMEREZ AUSSI</h3>
                 <div class="photo-list">
                     <?php
+                    // Récupère les catégories de la photo actuelle
                     $categories = wp_get_post_terms(get_the_ID(), 'categorie-photo');
                     if ($categories) {
                         $category_ids = wp_list_pluck($categories, 'term_id');
+                        
+                        // Ajoute l'ID de la photo actuelle pour l'exclure de la requête
+                        $excluded_ids = array(get_the_ID());
+
+                        // Exécute la requête pour trouver des photos similaires
                         $related_photos = new WP_Query(array(
                             'post_type' => 'photo',
                             'posts_per_page' => 2,
-                            'post__not_in' => array(get_queried_object_id()), // Exclure la photo actuelle
-                            'ignore_sticky_posts' => true, // Pour éviter les doublons dus aux posts sticky
+                            'post__not_in' => $excluded_ids, // Exclure la photo actuelle et celles affichées
+                            'ignore_sticky_posts' => true,
                             'tax_query' => array(
                                 array(
                                     'taxonomy' => 'categorie-photo',
@@ -107,17 +113,25 @@
                                 ),
                             ),
                         ));
-                        ?>
-                        <?php if ($related_photos->have_posts()) :?>
+
+                        // Affiche les photos associées si disponibles
+                        if ($related_photos->have_posts()) : ?>
                             <div class="photo-archive">
-                                <div class="photo-grid">  
-                                <?php while ($related_photos->have_posts()) : $related_photos->the_post();
+                                <div class="photo-grid">
+                                    <?php
+                                    // Boucle à travers les photos associées
+                                    while ($related_photos->have_posts()) : $related_photos->the_post();
+                                        // Ajoute chaque ID de photo affichée aux exclusions pour renforcer le filtrage
+                                        $excluded_ids[] = get_the_ID();
                                         get_template_part('template-parts/photo_block');
-                                    endwhile;?>
+                                    endwhile;
+                                    ?>
                                 </div>
                             </div>            
-                        <?php wp_reset_postdata();
-                        endif;
+                        <?php endif;
+
+                        // Réinitialise les données de la requête
+                        wp_reset_postdata();
                     }
                     ?>
                 </div>

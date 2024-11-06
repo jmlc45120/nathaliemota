@@ -18,3 +18,11 @@
     font-style: normal;
     font-weight: 400;
 }
+
+@mixin burger-open-font{
+    font-family:$font-monospace;
+    color:$color-white;
+    font-size: 44px;
+    font-style: normal;
+    font-weight: 400;
+}

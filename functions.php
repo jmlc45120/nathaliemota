@@ -48,7 +48,9 @@ function custom_admin_css() {
         #post-6,
         #post-113,
         #post-48,
-        #post-50  {
+        #post-50
+        #post-166,
+        #post-167, {
             display: none;
             }
     </style>';

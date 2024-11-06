@@ -524,7 +524,7 @@ article {
 .contact-modal {
   display: none;
   position: fixed;
-  z-index: 2;
+  z-index: 20;
   left: 0;
   top: 0;
   width: 100%;
@@ -1000,30 +1000,49 @@ button.open-contact-modal:hover {
   }
   .header__container {
     display: flex;
-    justify-content: space-around !important;
+    justify-content: space-around;
     align-items: center;
     max-width: 768px;
     width: 100%;
     height: 80px;
-    padding: 0 !important;
+    padding: 0;
     box-shadow: 0px 4px 14px 10px rgba(0, 0, 0, 0.03);
+    z-index: 10;
   }
   .header__nav {
     display: none;
     position: absolute;
     top: 80px;
-    left: 0;
-    width: 100%;
-    background-color: #FFFFFF;
-    border-top: 1px solid #B8BBC2;
-    border-bottom: 1px solid #B8BBC2;
-    align-items: center;
   }
   .header__nav.active {
     display: flex;
+    flex-direction: column;
+    position: fixed;
+    background-color: #E00000;
     justify-content: center;
     align-items: center;
     z-index: 2;
+  }
+  ul#menu-main-menu.navigation {
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    row-gap: 20px;
+    height: 100vh;
+    margin-top: -80px;
+  }
+  ul#menu-main-menu.navigation a {
+    font-family: "Space Mono", monospace;
+    color: #FFFFFF;
+    font-size: 44px;
+    font-style: normal;
+    font-weight: 400;
+    transition: color 0.3s ease, font-size 0.3s ease;
+  }
+  ul#menu-main-menu.navigation a:hover {
+    color: #FFFFFF !important;
+    font-size: 46px;
   }
   .burger-menu {
     display: flex;
@@ -1032,7 +1051,7 @@ button.open-contact-modal:hover {
     display: none;
   }
   .header__container .header__nav a {
-    font-size: 20px !important;
+    font-size: 20px;
   }
   /* Transformations pour la croix */
   .header__nav.active ~ .burger-menu .burger-bar:nth-child(1) {
@@ -1046,10 +1065,6 @@ button.open-contact-modal:hover {
   }
 }
 @media (max-width: 600px) {
-  #menu-main-menu.navigation {
-    width: 100%;
-    justify-content: center;
-  }
   .filters-section {
     flex-direction: column;
     margin: 12px 20px 20px 20px;

@@ -32,6 +32,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     burgerMenu.addEventListener('click', function() {
         headerNav.classList.toggle('active');
+        document.body.classList.toggle("no-scroll");
+        
     });
 
     window.addEventListener('resize', function() {

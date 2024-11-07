@@ -30,8 +30,13 @@ function custom_lightbox_scripts() {
 add_action('wp_enqueue_scripts', 'custom_lightbox_scripts');
 
 function exclude_media_from_editor($query) {
+    // Vérifie que l'utilisateur n'est pas un administrateur
     if (!current_user_can('administrator')) {
-        $query->set('post__not_in', array(151,150,149,148,147,140,142,136,53)); // Remplace par les ID des médias à exclure
+        // Vérifie si la requête concerne les médias (attachments)
+        if (is_admin() && $query->is_main_query() && 'attachment' === $query->get('post_type')) {
+            // Exclure les médias par leurs IDs
+            $query->set('post__not_in', array(151, 150, 149, 148, 147, 140, 142, 136, 53));
+        }
     }
 }
 add_action('pre_get_posts', 'exclude_media_from_editor');

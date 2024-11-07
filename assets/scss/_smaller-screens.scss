@@ -65,6 +65,7 @@ h2 {
             justify-content: center;
             align-items: center;
             z-index: 2;
+            opacity: 1;
         }
     }
 }
@@ -81,7 +82,6 @@ ul#menu-main-menu.navigation {
     
     & a {
         @include burger-open-font;
-        // Transition douce sur le hover des liens
         transition: color 0.3s ease, font-size 0.3s ease;
     }
     & a:hover {
@@ -99,6 +99,7 @@ ul#menu-main-menu.navigation {
     .header__container .header__nav a {
         font-size:20px;
     }
+
     /* Transformations pour la croix */
     .header__nav.active ~ .burger-menu .burger-bar:nth-child(1) {
         transform: translateY(7px) rotate(45deg);

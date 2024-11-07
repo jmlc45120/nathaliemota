@@ -1022,6 +1022,7 @@ button.open-contact-modal:hover {
     justify-content: center;
     align-items: center;
     z-index: 2;
+    opacity: 1;
   }
   ul#menu-main-menu.navigation {
     flex-direction: column;

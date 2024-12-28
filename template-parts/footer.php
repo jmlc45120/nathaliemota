@@ -6,6 +6,7 @@
         <a href="/mentions-legales">MENTIONS LÉGALES</a>
         <a href="/vie-privee">VIE PRIVÉE</a>
         <p>TOUS DROITS RÉSERVÉS</p>
+        <a href="https://codebyjmlc.fr/mes-realisations/" style="color:blue;font-weight: bold;">RETOUR AU PORTFOLIO</a>
     </div>
     <?php get_template_part('template-parts/contact-modal'); ?>
     <?php wp_footer(); ?>
